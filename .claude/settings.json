@@ -1,0 +1,26 @@
+{
+  "extraKnownMarketplaces": {
+    "taha-claude-skills": {
+      "source": {
+        "source": "github",
+        "repo": "taha-mohd92/taha-claude-skills"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "feature-dev@taha-claude-skills": true,
+    "codex@taha-claude-skills": true,
+    "superpowers@taha-claude-skills": true,
+    "ui-ux-pro-max@taha-claude-skills": true,
+    "claudex-loop@taha-claude-skills": true,
+    "mattpocock-skills@taha-claude-skills": true,
+    "andrej-karpathy-skills@taha-claude-skills": true,
+    "impeccable@taha-claude-skills": true,
+    "claude-obsidian@taha-claude-skills": true,
+    "gsap-skills@taha-claude-skills": true,
+    "emil-skills@taha-claude-skills": true,
+    "taste-skill@taha-claude-skills": true,
+    "agent-browser@taha-claude-skills": true,
+    "mcp-builder@taha-claude-skills": true
+  }
+}
