@@ -1,0 +1,15 @@
+{
+  "name": "Sup & Api Malatang",
+  "short_name": "Sup & Api",
+  "description": "Build-your-own malatang in Wangsa Maju, Kuala Lumpur.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#140a0c",
+  "theme_color": "#140a0c",
+  "lang": "en-MY",
+  "icons": [
+    { "src": "assets/img/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "assets/img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
