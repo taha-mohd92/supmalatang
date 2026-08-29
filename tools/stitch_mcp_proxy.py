@@ -54,6 +54,8 @@ ENDPOINT = os.environ.get("STITCH_MCP_URL", "https://stitch.googleapis.com/mcp")
 SCOPES = ["https://www.googleapis.com/auth/cloud-platform",
           "https://www.googleapis.com/auth/aida"]
 REFRESH_MARGIN = 300          # re-mint 5 minutes before the token lapses
+RETRIES = 3                   # transport blips must not kill the session
+BACKOFF = 0.6                 # seconds, doubled per attempt
 
 _token = {"value": None, "expires": 0.0}
 _session_id = None
@@ -124,7 +126,8 @@ def parse_response(raw, content_type):
     return json.loads(text)
 
 
-def forward(message):
+def _post(message):
+    """One HTTP round trip. Returns (body, content_type) or raises URLError."""
     global _session_id
     headers = {"Content-Type": "application/json",
                "Accept": "application/json, text/event-stream"}
@@ -139,24 +142,45 @@ def forward(message):
     try:
         with urllib.request.urlopen(req, timeout=900) as resp:
             _session_id = resp.headers.get("Mcp-Session-Id") or _session_id
-            body = resp.read()
-            ctype = resp.headers.get("Content-Type")
+            return resp.read(), resp.headers.get("Content-Type")
     except urllib.error.HTTPError as e:
-        body, ctype = e.read(), e.headers.get("Content-Type")
         if e.code == 401:
             log("401 from Stitch — run: gcloud auth application-default login "
                 "--scopes=" + ",".join(SCOPES))
-    except urllib.error.URLError as e:
-        return {"jsonrpc": "2.0", "id": message.get("id"),
-                "error": {"code": -32001, "message": f"cannot reach Stitch: {e.reason}"}}
+        return e.read(), e.headers.get("Content-Type")
 
-    try:
-        return parse_response(body, ctype)
-    except (ValueError, json.JSONDecodeError) as e:
-        return {"jsonrpc": "2.0", "id": message.get("id"),
-                "error": {"code": -32700,
-                          "message": f"unparseable response: {e}",
-                          "data": body[:400].decode("utf-8", "replace")}}
+
+def forward(message):
+    """Forward one JSON-RPC message, retrying transient transport faults.
+
+    A single unparseable or empty reply otherwise makes the MCP client mark the
+    whole server dead for the session, so a blip during startup costs far more
+    than one retry does.
+    """
+    last = None
+    for attempt in range(RETRIES):
+        try:
+            body, ctype = _post(message)
+        except urllib.error.URLError as e:
+            last = f"cannot reach Stitch: {e.reason}"
+        else:
+            if not body.strip():
+                last = "empty response body"
+            else:
+                try:
+                    return parse_response(body, ctype)
+                except (ValueError, json.JSONDecodeError) as e:
+                    last = f"unparseable response: {e}"
+                    snippet = body[:200].decode("utf-8", "replace")
+                    log(f"{last} — first bytes: {snippet!r}")
+        if attempt + 1 < RETRIES:
+            delay = BACKOFF * (2 ** attempt)
+            log(f"{last}; retrying in {delay:.1f}s "
+                f"({attempt + 2}/{RETRIES})")
+            time.sleep(delay)
+
+    return {"jsonrpc": "2.0", "id": message.get("id"),
+            "error": {"code": -32001, "message": f"{last} (after {RETRIES} attempts)"}}
 
 
 def main():

@@ -145,6 +145,11 @@ then `google.auth` default credentials — the first that yields one wins. Witho
 still forwards the request, so the unauthenticated methods work and Google's own error text
 comes back verbatim instead of a generic failure.
 
+Transport faults are retried three times with exponential backoff. An MCP client marks a
+server dead for the whole session after one bad reply, so a single blip during startup costs
+far more than a retry does — this was observed once as
+`stitch (-32700): unparseable response`, with the endpoint healthy either side of it.
+
 Smoke-test it without credentials:
 
 ```bash
