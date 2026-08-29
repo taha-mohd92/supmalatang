@@ -13,8 +13,8 @@
    * Only scenes intersecting the viewport are updated (IntersectionObserver),
      and `will-change` is applied to active scenes only, so idle sections cost
      nothing in compositor memory.
-   * Motion is opt-out in three independent ways: the OS `prefers-reduced-motion`
-     setting, a persisted in-page toggle, and Save-Data / low-core devices.
+   * Motion runs by default and honours one opt-out: the OS
+     `prefers-reduced-motion` setting.
    ========================================================================= */
 (function () {
   'use strict';
@@ -22,27 +22,12 @@
   var root = document.documentElement;
   var reduceQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   var coarse = window.matchMedia('(hover: none)').matches;
-  var STORE_KEY = 'sam-motion';
 
-  var conn = navigator.connection || {};
-  var thrifty = conn.saveData === true ||
-                /2g/.test(conn.effectiveType || '') ||
-                (navigator.hardwareConcurrency || 8) <= 2;
-
-  /* User preference: 'off' | 'on' | null (follow the system). */
-  function stored() {
-    try { return localStorage.getItem(STORE_KEY); } catch (e) { return null; }
-  }
-  function store(v) {
-    try { v ? localStorage.setItem(STORE_KEY, v) : localStorage.removeItem(STORE_KEY); }
-    catch (e) { /* private mode — the session still works, it just won't persist */ }
-  }
-
+  /* Motion is on by default. The OS reduced-motion setting is the single
+     opt-out: no in-page toggle, and no device heuristics that were quietly
+     disabling the effect on low-core machines. */
   function motionAllowed() {
-    var pref = stored();
-    if (pref === 'off') return false;
-    if (pref === 'on') return true;
-    return !reduceQuery.matches && !thrifty;
+    return !reduceQuery.matches;
   }
 
   /* ── Parallax engine ───────────────────────────────────────────────── */
@@ -219,32 +204,33 @@
     });
   }
 
-  /* ── Apply / toggle ────────────────────────────────────────────────── */
-  var toggle = document.getElementById('motion-toggle');
-
+  /* ── Apply ─────────────────────────────────────────────────────────── */
   function apply() {
     var on = motionAllowed();
     root.classList.toggle('motion-off', !on);
     if (on) { enableParallax(); playVideo(); }
     else { disableParallax(); pauseVideo(); }
-    if (toggle) {
-      toggle.setAttribute('aria-pressed', on ? 'false' : 'true');
-      toggle.setAttribute('aria-label',
-        on ? 'Motion effects are on. Turn them off.' : 'Motion effects are off. Turn them on.');
-    }
   }
 
-  if (toggle) {
-    toggle.addEventListener('click', function () {
-      store(motionAllowed() ? 'off' : 'on');
-      apply();
-    });
-  }
-
+  /* React live if the reader flips reduced-motion while the page is open. */
   if (reduceQuery.addEventListener) {
-    reduceQuery.addEventListener('change', function () { if (!stored()) apply(); });
+    reduceQuery.addEventListener('change', apply);
   } else if (reduceQuery.addListener) {
-    reduceQuery.addListener(function () { if (!stored()) apply(); });
+    reduceQuery.addListener(apply);
+  }
+
+  /* ── Map focus ring ────────────────────────────────────────────────── */
+  /* A cross-document iframe matches none of :focus, :focus-visible or the
+     parent's :focus-within, so keyboard users get no ring from CSS alone.
+     Window blur while the frame holds focus is the reliable signal. */
+  var mapFig = document.querySelector('.visit-map');
+  if (mapFig) {
+    var mapFrame = mapFig.querySelector('iframe');
+    window.addEventListener('blur', function () {
+      if (document.activeElement === mapFrame) mapFig.classList.add('is-focus');
+    });
+    window.addEventListener('focus', function () { mapFig.classList.remove('is-focus'); });
+    document.addEventListener('mousedown', function () { mapFig.classList.remove('is-focus'); });
   }
 
   window.addEventListener('load', function () { measure(); kick(); });

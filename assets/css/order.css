@@ -311,24 +311,12 @@
 .drink__en { font-size: .92rem; }
 .drink__ms { font-size: .82rem; color: var(--on-surface-dim); font-style: italic; }
 
-.drinks__board { margin: 0; }
-.drinks__board a { display: block; border-radius: var(--r-lg); overflow: hidden; }
-.drinks__board a:focus-visible { outline: 3px solid var(--primary-hot); outline-offset: 3px; }
-.drinks__board picture { display: block; box-shadow: inset 0 0 0 1px rgba(29, 53, 87, .14); }
-.drinks__board img { display: block; width: 100%; height: auto; }
-.drinks__board figcaption {
-  margin-top: .6rem; font-family: var(--font-label);
-  font-size: .74rem; letter-spacing: .04em; color: var(--on-surface-dim);
-}
 
 /* Three stacked lines beat a right-aligned third column: in a two-up layout the
    English name was wrapping mid-phrase to make room for the Malay. */
 @media (min-width: 62rem) {
-  .drinks__grid { grid-template-columns: 1fr 38%; }
   .drinks__lists { grid-template-columns: 1fr 1fr; align-items: start; }
-  .drinks__board { position: sticky; top: 6rem; }
-}
-
+  
 /* Sora and Hanken Grotesk carry no CJK, so name the fallback rather than
    leaving the Chinese to whatever each OS happens to pick. */
 [lang="zh"] {
