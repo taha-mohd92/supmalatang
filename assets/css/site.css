@@ -235,13 +235,17 @@ a { color: var(--primary); text-decoration-thickness: .08em; text-underline-offs
 .hero__scrim {
   position: absolute; inset: 0;
   background:
+    /* Focus: the bowl sits in the clear centre, everything else sinks away. */
+    radial-gradient(76% 94% at 72% 60%,
+      transparent 0%, transparent 33%,
+      rgba(14, 24, 40, .30) 74%, rgba(14, 24, 40, .54) 100%),
     linear-gradient(100deg,
       rgba(14, 24, 40, .97) 0%,
-      rgba(14, 24, 40, .96) 50%,
-      rgba(14, 24, 40, .58) 63%,
-      rgba(14, 24, 40, .22) 77%,
-      rgba(14, 24, 40, .08) 92%),
-    linear-gradient(180deg, rgba(14, 24, 40, .55) 0%, transparent 32%, rgba(14, 24, 40, .80) 100%);
+      rgba(14, 24, 40, .95) 50%,
+      rgba(14, 24, 40, .52) 64%,
+      rgba(14, 24, 40, .14) 79%,
+      rgba(14, 24, 40, .02) 94%),
+    linear-gradient(180deg, rgba(14, 24, 40, .45) 0%, transparent 38%, rgba(14, 24, 40, .62) 100%);
 }
 .hero__spice {
   z-index: -2;
@@ -296,9 +300,13 @@ a { color: var(--primary); text-decoration-thickness: .08em; text-underline-offs
   position: absolute; inset-inline-end: var(--pad); top: 50%;
   margin-top: -11rem;                 /* own the transform: the parallax engine writes it */
   width: min(23rem, 32vw); padding: 1.75rem;
-  border: 1px solid var(--outline-dark); border-radius: var(--r-lg);
-  background: linear-gradient(165deg, rgba(255, 243, 236, .12), rgba(255, 243, 236, .04));
-  box-shadow: 0 20px 60px rgba(8, 3, 4, .5);
+  border: 1px solid rgba(241, 241, 230, .22); border-radius: var(--r-lg);
+  /* Glassmorphism per the design system: the card keeps the context of the
+     food scrolling beneath it while staying readable over a bright broth. */
+  background: linear-gradient(165deg, rgba(14, 24, 40, .82), rgba(14, 24, 40, .74));
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  box-shadow: 0 20px 60px rgba(8, 3, 4, .38);
 }
 .hero__card-label {
   margin: 0 0 1.1rem; font-size: .72rem; letter-spacing: .22em;
@@ -571,12 +579,14 @@ address { font-style: normal; line-height: 1.75; }
   .hero__img { object-position: 50% 62%; }
   .hero__scrim {
     background:
+      radial-gradient(120% 46% at 50% 84%,
+        transparent 0%, transparent 42%, rgba(14, 24, 40, .34) 100%),
       linear-gradient(180deg,
         rgba(14, 24, 40, .96) 0%,
-        rgba(14, 24, 40, .94) 56%,
-        rgba(14, 24, 40, .58) 68%,
-        rgba(14, 24, 40, .18) 78%,
-        rgba(14, 24, 40, .10) 100%);
+        rgba(14, 24, 40, .95) 58%,
+        rgba(14, 24, 40, .46) 70%,
+        rgba(14, 24, 40, .08) 80%,
+        rgba(14, 24, 40, .02) 100%);
   }
   .hero__title { font-size: clamp(2.35rem, 1.1rem + 6.4vw, 3.4rem); }
   /* Stats become an instrument panel so they stay legible over the broth,
