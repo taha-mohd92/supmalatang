@@ -66,25 +66,42 @@ def log(msg):
     print(f"[stitch-proxy] {msg}", file=sys.stderr, flush=True)
 
 
+def _run(argv):
+    try:
+        out = subprocess.run(argv, capture_output=True, text=True, timeout=60)
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        return None, None
+    return (out.stdout.strip() or None), out.stderr.strip()
+
+
 def _from_gcloud():
-    try:
-        out = subprocess.run(
-            ["gcloud", "auth", "print-access-token", "--scopes=" + ",".join(SCOPES)],
-            capture_output=True, text=True, timeout=60)
-    except (FileNotFoundError, subprocess.TimeoutExpired):
-        return None
-    if out.returncode == 0 and out.stdout.strip():
-        return out.stdout.strip()
-    # Older gcloud builds reject --scopes on user credentials; retry plainly.
-    try:
-        out = subprocess.run(["gcloud", "auth", "print-access-token"],
-                             capture_output=True, text=True, timeout=60)
-    except (FileNotFoundError, subprocess.TimeoutExpired):
-        return None
-    if out.returncode == 0 and out.stdout.strip():
-        return out.stdout.strip()
-    log("gcloud could not mint a token: " + out.stderr.strip()[:200])
+    """`application-default login` writes ADC, which the plain user-credential
+    command cannot see — so ask for the ADC token first."""
+    for argv in (["gcloud", "auth", "application-default", "print-access-token"],
+                 ["gcloud", "auth", "print-access-token"]):
+        tok, err = _run(argv)
+        if tok:
+            return tok
+    if err:
+        log("gcloud could not mint a token: " + err[:200])
     return None
+
+
+def quota_project():
+    """User-credential ADC carries no project, and Google bills the call against
+    one, so send it explicitly or every call fails 403."""
+    explicit = os.environ.get("STITCH_QUOTA_PROJECT")
+    if explicit:
+        return explicit
+    tok, _ = _run(["gcloud", "config", "get-value", "billing/quota_project"])
+    if tok and tok != "(unset)":
+        return tok
+    adc = os.path.expanduser("~/.config/gcloud/application_default_credentials.json")
+    try:
+        with open(adc) as fh:
+            return json.load(fh).get("quota_project_id")
+    except (OSError, json.JSONDecodeError):
+        return None
 
 
 def _from_library():
@@ -134,6 +151,9 @@ def _post(message):
     tok = access_token()
     if tok:
         headers["Authorization"] = "Bearer " + tok
+    project = quota_project()
+    if project:
+        headers["x-goog-user-project"] = project
     if _session_id:
         headers["Mcp-Session-Id"] = _session_id
 
@@ -144,9 +164,11 @@ def _post(message):
             _session_id = resp.headers.get("Mcp-Session-Id") or _session_id
             return resp.read(), resp.headers.get("Content-Type")
     except urllib.error.HTTPError as e:
-        if e.code == 401:
-            log("401 from Stitch — run: gcloud auth application-default login "
-                "--scopes=" + ",".join(SCOPES))
+        if e.code in (401, 403):
+            log(f"{e.code} from Stitch. Checklist: (1) gcloud auth "
+                "application-default login --scopes=" + SCOPES[0] + "  "
+                "(2) enable stitch.googleapis.com on a project you own  "
+                "(3) set STITCH_QUOTA_PROJECT to that project id")
         return e.read(), e.headers.get("Content-Type")
 
 
