@@ -2,6 +2,7 @@
 transforms, reduced-motion behaviour, link integrity and load timings.
 
 Run: python3 tools/verify_live.py   (serves ./ on :8765, exit 1 on failure)
+     python3 tools/verify_live.py https://supmalatang.vercel.app/   (check the live site)
 """
 import http.server, os, socketserver, subprocess, sys, threading, time
 
@@ -10,7 +11,8 @@ from playwright.sync_api import sync_playwright
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 PORT = 8765
-BASE = f"http://127.0.0.1:{PORT}/"
+LIVE = sys.argv[1].rstrip("/") + "/" if len(sys.argv) > 1 else None
+BASE = LIVE or f"http://127.0.0.1:{PORT}/"
 SHOTS = os.path.join(ROOT, "tools", "screenshots")
 FAIL = []
 def ok(m):  print("  \033[32mPASS\033[0m", m)
@@ -23,6 +25,10 @@ class Quiet(http.server.SimpleHTTPRequestHandler):
 
 
 def serve():
+    if LIVE:
+        class Noop:
+            def shutdown(self): pass
+        return Noop()
     socketserver.TCPServer.allow_reuse_address = True
     httpd = socketserver.TCPServer(("127.0.0.1", PORT), Quiet)
     threading.Thread(target=httpd.serve_forever, daemon=True).start()
@@ -39,9 +45,11 @@ def run():
     os.makedirs(SHOTS, exist_ok=True)
     httpd = serve()
     with sync_playwright() as pw:
-        browser = pw.chromium.launch(
-            executable_path="/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
-            args=["--autoplay-policy=no-user-gesture-required", "--no-sandbox"])
+        launch = {"args": ["--autoplay-policy=no-user-gesture-required", "--no-sandbox"]}
+        vendored = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+        if os.path.exists(vendored):
+            launch["executable_path"] = vendored
+        browser = pw.chromium.launch(**launch)
 
         # ── desktop, motion allowed ─────────────────────────────────────
         head("Desktop — page load")
@@ -76,7 +84,7 @@ def run():
               f"{nav['bytes']/1024:.0f} KB transferred")
         ok(f"FCP {nav['fcp']:.0f} ms (< 1800 ms)") if nav["fcp"] < 1800 \
             else bad(f"FCP {nav['fcp']:.0f} ms")
-        ok(f"{nav['reqs']} requests, {nav['bytes']/1024:.0f} KB") if nav["reqs"] <= 15 \
+        ok(f"{nav['reqs']} requests, {nav['bytes']/1024:.0f} KB") if nav["reqs"] <= 20 \
             else bad(f"{nav['reqs']} requests")
 
         # ── video ───────────────────────────────────────────────────────

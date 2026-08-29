@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://taha-mohd92.github.io/supmalatang/sitemap.xml
+Sitemap: https://supmalatang.vercel.app/sitemap.xml

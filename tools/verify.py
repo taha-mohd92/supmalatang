@@ -13,7 +13,7 @@ def warn(m): WARN.append(m); print("  \033[33mWARN\033[0m", m)
 def head(m): print("\n\033[1m" + m + "\033[0m")
 
 DOC = open("index.html", encoding="utf-8").read()
-SITE = "https://taha-mohd92.github.io/supmalatang/"
+SITE = "https://supmalatang.vercel.app/"
 
 # ── files ────────────────────────────────────────────────────────────────
 head("Files")

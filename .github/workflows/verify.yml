@@ -1,0 +1,28 @@
+name: Verify
+
+on:
+  push:
+    branches: [claude/stitch-mcp-integration-g2unu6]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install pillow imageio-ffmpeg
+      - name: Assets, metadata, schema, links, weight budget
+        run: python3 tools/verify.py
+
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install playwright && python3 -m playwright install --with-deps chromium
+      - name: Video playback, parallax, reduced motion, mobile, frame cost
+        run: python3 tools/verify_live.py

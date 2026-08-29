@@ -29,6 +29,7 @@ tools/make_media.py   regenerates every image and video from code
 tools/verify.py       static checks: assets, metadata, schema, links, weight budget
 tools/verify_live.py  Chromium checks: playback, parallax, reduced motion, mobile, frame cost
 tools/stitch_call.py  direct JSON-RPC client for the Stitch MCP server in .mcp.json
+vercel.json           caching and security headers for the Vercel deployment
 ```
 
 ## The parallax engine
@@ -88,12 +89,21 @@ python3 tools/make_media.py     # regenerate video, poster, OG image, depth plat
 python3 tools/verify.py         # static checks
 python3 -m http.server 8765     # serve locally
 python3 tools/verify_live.py    # browser checks + screenshots in tools/screenshots/
+python3 tools/verify_live.py https://supmalatang.vercel.app/   # same checks against production
 ```
 
-Deployment: `.github/workflows/pages.yml` verifies, then publishes to GitHub Pages at
-`https://taha-mohd92.github.io/supmalatang/`. If a custom domain is added later, update the
-canonical/OG/JSON-LD URLs in `index.html`, `robots.txt` and `sitemap.xml` — they are the only
-places the origin appears.
+## Deployment
+
+Live at **https://supmalatang.vercel.app**. The Vercel project is linked to this repository, so
+every push to `claude/stitch-mcp-integration-g2unu6` (the production branch) deploys
+automatically. `vercel.json` sets year-long immutable caching on `/assets/*`, revalidation on
+HTML, and the usual security headers.
+
+`.github/workflows/verify.yml` runs both verifiers on every push and pull request — static
+checks, then the full Chromium pass.
+
+If a custom domain is added later, update the origin in `index.html`, `robots.txt`,
+`sitemap.xml` and `tools/verify.py` — those are the only places it appears.
 
 ### Stitch MCP
 
