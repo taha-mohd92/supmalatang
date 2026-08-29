@@ -274,3 +274,64 @@
   background: var(--surface-3); color: var(--outline);
 }
 .item__media--ph svg { width: 1.9rem; height: 1.9rem; }
+
+/* ── Tea & beverages: the one genuinely sourced menu on this page ───────── */
+.drinks { padding: clamp(2rem, 5vw, 3.5rem) var(--pad) clamp(2rem, 5vw, 3rem); }
+.drinks__src {
+  margin: 1rem 0 0; max-width: 52ch;
+  font-size: .92rem; color: var(--on-surface-dim);
+}
+.drinks__grid { display: grid; gap: var(--gap); align-items: start; }
+.drinks__lists { display: grid; gap: var(--gap); }
+
+.drinks__group h3 {
+  display: flex; align-items: center; gap: .55rem;
+  font-size: .82rem; font-family: var(--font-label); font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--on-surface-dim);
+  margin-bottom: .85rem;
+}
+.drinks__group h3 [lang="zh"] { letter-spacing: .05em; text-transform: none; }
+
+/* Temperature is carried by grouping, an icon and a word — never colour alone */
+.tmark { display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: var(--r-sm); }
+.tmark svg { width: 1rem; height: 1rem; }
+.tmark--cold { background: #dce9f5; color: #1d3557; }
+.tmark--hot  { background: rgba(230, 57, 70, .14); color: var(--primary); }
+
+.drinks__list { margin: 0; padding: 0; list-style: none; display: grid; gap: .3rem; }
+.drink {
+  display: grid; gap: .1rem .9rem;
+  padding: .7rem .9rem;
+  border-radius: var(--r-md);
+  background: var(--surface-lowest);
+  box-shadow: inset 0 0 0 1px rgba(29, 53, 87, .12);
+}
+.drink__zh { font-weight: 700; font-size: 1.02rem; letter-spacing: .02em; }
+.drink__en { font-size: .92rem; }
+.drink__ms { font-size: .82rem; color: var(--on-surface-dim); font-style: italic; }
+
+.drinks__board { margin: 0; }
+.drinks__board a { display: block; border-radius: var(--r-lg); overflow: hidden; }
+.drinks__board a:focus-visible { outline: 3px solid var(--primary-hot); outline-offset: 3px; }
+.drinks__board picture { display: block; box-shadow: inset 0 0 0 1px rgba(29, 53, 87, .14); }
+.drinks__board img { display: block; width: 100%; height: auto; }
+.drinks__board figcaption {
+  margin-top: .6rem; font-family: var(--font-label);
+  font-size: .74rem; letter-spacing: .04em; color: var(--on-surface-dim);
+}
+
+/* Three stacked lines beat a right-aligned third column: in a two-up layout the
+   English name was wrapping mid-phrase to make room for the Malay. */
+@media (min-width: 62rem) {
+  .drinks__grid { grid-template-columns: 1fr 38%; }
+  .drinks__lists { grid-template-columns: 1fr 1fr; align-items: start; }
+  .drinks__board { position: sticky; top: 6rem; }
+}
+
+/* Sora and Hanken Grotesk carry no CJK, so name the fallback rather than
+   leaving the Chinese to whatever each OS happens to pick. */
+[lang="zh"] {
+  font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC",
+               "Source Han Sans SC", "Microsoft YaHei", sans-serif;
+}
