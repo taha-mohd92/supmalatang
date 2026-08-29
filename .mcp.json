@@ -1,11 +1,9 @@
 {
   "mcpServers": {
     "stitch": {
-      "type": "http",
-      "url": "https://stitch.googleapis.com/mcp",
-      "headers": {
-        "X-Goog-Api-Key": "AQ.Ab8RN6J09zthFEYTRoO7HM7monQtxA4Vj_L-cm4uDDjO7idaew"
-      }
+      "type": "stdio",
+      "command": "python3",
+      "args": ["tools/stitch_mcp_proxy.py"]
     }
   }
 }

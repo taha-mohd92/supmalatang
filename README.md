@@ -107,13 +107,53 @@ If a custom domain is added later, update the origin in `index.html`, `robots.tx
 
 ### Stitch MCP
 
-`.mcp.json` points at the Stitch MCP server. The committed key is an expired short-lived Google
-token — the endpoint answers, then rejects the call with *"Expected OAuth 2 access token"* —
-so a fresh credential is needed before Stitch can generate screens. Register it with:
+`stitch.googleapis.com/mcp` is an **OAuth 2.0 protected resource**, not an API-key one:
 
-```bash
-claude mcp add stitch --transport http https://stitch.googleapis.com/mcp \
-  --header "X-Goog-Api-Key: <fresh-key>" -s user
+```
+$ curl https://stitch.googleapis.com/.well-known/oauth-protected-resource/mcp
+{"authorization_servers":["https://accounts.google.com/"],
+ "bearer_methods_supported":["header"],
+ "scopes_supported":["https://www.googleapis.com/auth/aida",
+                     "https://www.googleapis.com/auth/cloud-platform"]}
 ```
 
-MCP servers are read at session start, so a new session is required to pick it up.
+Three things follow, and together they explain every symptom:
+
+* **An API key cannot work.** Sent alongside a bearer header, Google says so in as many
+  words: *"API keys are not supported by this API. Expected OAuth2 access token or other
+  authentication credentials that assert a principal."* A static `X-Goog-Api-Key` in
+  `.mcp.json` fails no matter how fresh the key is.
+* **A health check will still say "Connected".** `initialize` and `tools/list` need no
+  credentials at all — verified with no headers whatsoever. Only `tools/call` is
+  authenticated, so the server looks healthy until the first real call returns 401.
+* **Claude Code's built-in OAuth cannot finish the flow.** `accounts.google.com` does not
+  implement RFC 7591 dynamic client registration, which surfaces as
+  *"Incompatible auth server: does not support dynamic client registration"*.
+
+`tools/stitch_mcp_proxy.py` resolves this. It is a dependency-free stdio ⇄ HTTP bridge that
+mints a short-lived Google access token, attaches it as `Authorization: Bearer`, refreshes it
+before expiry, and forwards everything else untouched. `.mcp.json` points at it. Authorise
+once:
+
+```bash
+gcloud auth application-default login \
+  --scopes=https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/aida
+```
+
+The bridge takes a token from `$STITCH_ACCESS_TOKEN`, then `gcloud auth print-access-token`,
+then `google.auth` default credentials — the first that yields one wins. Without any token it
+still forwards the request, so the unauthenticated methods work and Google's own error text
+comes back verbatim instead of a generic failure.
+
+Smoke-test it without credentials:
+
+```bash
+printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' \
+  | python3 tools/stitch_mcp_proxy.py
+```
+
+> The API key previously committed to `.mcp.json` never had the right shape for this endpoint
+> and is still in this branch's git history. Revoke it at its source rather than relying on
+> its removal from the working tree.
+
+MCP servers are read at session start, so a new session is needed to pick up the change.
