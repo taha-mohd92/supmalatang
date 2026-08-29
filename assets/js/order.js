@@ -6,9 +6,8 @@
 (function () {
   'use strict';
 
-  var BASE = { soup: 300, dry: 350 };        // broth/base charge, in sen
-  var PORTION_G = 100;                        // one portion of any ingredient
   var MAX_QTY = 9;
+  // Malatang is sold by weight, so it carries no price here — the counter weighs it.
 
   var $  = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
@@ -25,16 +24,24 @@
   var BROTH_LABEL = { mala: 'Mala', tomato: 'Tomato', clear: 'Clear' };
   var HEAT_LABEL  = { 1: 'Clear', 2: 'Mild', 3: 'Medium', 4: 'Hot', 5: 'Mala' };
 
-  function baseSen() { return BASE[picked('style')] || 0; }
-  function itemsSen() {
+  function malaOn() { var c = $('#mala-on'); return !!(c && c.checked); }
+  // Items with a zero price are on the menu but unpriced in store.
+  function totalSen() {
     return Object.keys(bowl).reduce(function (s, k) { return s + bowl[k].price * bowl[k].qty; }, 0);
   }
-  function totalSen() { return baseSen() + itemsSen(); }
-  function totalGrams() {
-    return Object.keys(bowl).reduce(function (s, k) { return s + bowl[k].qty * PORTION_G; }, 0);
+  function unpricedCount() {
+    return Object.keys(bowl).reduce(function (s, k) {
+      return s + (bowl[k].price === 0 ? bowl[k].qty : 0);
+    }, 0);
   }
   function lineCount() {
     return Object.keys(bowl).reduce(function (s, k) { return s + bowl[k].qty; }, 0);
+  }
+  function malaSummary() {
+    var dry = picked('style') === 'dry';
+    return [STYLE_LABEL[picked('style')],
+            dry ? 'no broth' : BROTH_LABEL[picked('broth')] + ' broth',
+            'heat ' + picked('heat') + ' · ' + HEAT_LABEL[picked('heat')]].join(' · ');
   }
 
   /* ── Rendering ────────────────────────────────────────────────────────── */
@@ -46,7 +53,7 @@
     if (!keys.length) {
       var li = document.createElement('li');
       li.className = 'cart__empty';
-      li.textContent = 'Nothing in the bowl yet. Add something from the left.';
+      li.textContent = 'Nothing selected yet. Add a dish from the left.';
       list.appendChild(li);
     } else {
       keys.forEach(function (k) {
@@ -61,20 +68,33 @@
       });
     }
 
-    var dry = picked('style') === 'dry';
-    $('#cart-meta').textContent = [
-      STYLE_LABEL[picked('style')],
-      dry ? 'no broth' : BROTH_LABEL[picked('broth')] + ' broth',
-      'heat ' + picked('heat') + ' · ' + HEAT_LABEL[picked('heat')]
-    ].join(' · ');
+    if (malaOn()) {
+      var li2 = document.createElement('li');
+      li2.className = 'cart__mala';
+      var l2 = document.createElement('span');
+      l2.textContent = 'Malatang bowl — ' + malaSummary();
+      var r2 = document.createElement('b');
+      r2.textContent = 'by weight';
+      li2.appendChild(l2); li2.appendChild(r2);
+      list.appendChild(li2);
+      if ($('#cart-list .cart__empty')) $('#cart-list .cart__empty').remove();
+    }
 
-    $('#cart-weight').textContent = totalGrams() + ' g';
-    $('#cart-base').textContent   = money(baseSen());
-    $('#cart-total').textContent  = money(totalSen());
-    $('#checkout').disabled = lineCount() === 0;
+    $('#cart-meta').textContent = malaOn()
+      ? malaSummary()
+      : (lineCount() ? lineCount() + ' item' + (lineCount() === 1 ? '' : 's') : 'Nothing selected yet');
 
-    // the broth step is meaningless for the dry mix
-    $('#step-broth').hidden = dry;
+    var extras = [];
+    if (unpricedCount()) extras.push(unpricedCount() + ' priced at the counter');
+    if (malaOn()) extras.push('malatang by weight');
+    $('#cart-extra').textContent = extras.length ? '+ ' + extras.join(' · ') : '';
+    $('#cart-extra').hidden = !extras.length;
+
+    $('#cart-total').textContent = money(totalSen());
+    $('#checkout').disabled = lineCount() === 0 && !malaOn();
+
+    // the broth choice is meaningless for the dry mix
+    $('#step-broth').hidden = picked('style') === 'dry';
   }
 
   /* ── Quantity controls ────────────────────────────────────────────────── */
@@ -109,6 +129,10 @@
 
   $$('input[name="style"], input[name="broth"], input[name="heat"]').forEach(function (el) {
     el.addEventListener('change', renderCart);
+  });
+  $('#mala-on').addEventListener('change', function () {
+    $('#mala-opts').hidden = !this.checked;
+    renderCart();
   });
 
   /* ── Checkout sheet ───────────────────────────────────────────────────── */
@@ -177,16 +201,12 @@
 
     var list = $('#review-list');
     list.textContent = '';
-    var dry = picked('style') === 'dry';
-    var rows = [
-      [STYLE_LABEL[picked('style')] + (dry ? '' : ' · ' + BROTH_LABEL[picked('broth')] + ' broth'),
-       money(baseSen())],
-      ['Heat level ' + picked('heat') + ' · ' + HEAT_LABEL[picked('heat')], '']
-    ];
+    var rows = [];
     Object.keys(bowl).forEach(function (k) {
-      rows.push([bowl[k].qty + ' × ' + bowl[k].name, money(bowl[k].price * bowl[k].qty)]);
+      rows.push([bowl[k].qty + ' × ' + bowl[k].name,
+                 bowl[k].price ? money(bowl[k].price * bowl[k].qty) : 'at counter']);
     });
-    rows.push(['About ' + totalGrams() + ' g total', '']);
+    if (malaOn()) rows.push(['Malatang bowl — ' + malaSummary(), 'by weight']);
     rows.push([({ pickup: 'Pick up', dinein: 'Dine in', delivery: 'Delivery' })[f.fulfil.value]
       + ' · ' + name, '']);
     if (f.notes.value.trim()) rows.push(['Note: ' + f.notes.value.trim(), '']);
@@ -227,6 +247,8 @@
       $('[data-act="dec"]', li).disabled = true;
       $('[data-act="inc"]', li).disabled = false;
     });
+    $('#mala-on').checked = false;
+    $('#mala-opts').hidden = true;
     $('#pane-details').reset();
     renderCart();
   });

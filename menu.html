@@ -68,9 +68,10 @@
       <p class="eyebrow">Menu &amp; ordering</p>
       <h1>Spicy Hot Pot <span lang="zh">麻辣烫</span><br>&amp; Spicy Mix <span lang="zh">麻辣拌</span></h1>
       <span class="rule" aria-hidden="true"></span>
-      <p class="menu-hero__lede">Chinese Muslim cuisine in Wangsa Maju. Pick your ingredients by
-        hand, we weigh them, then cook them in the broth you choose — or toss them dry in mala
-        paste for the <span lang="zh">麻辣拌</span>.</p>
+      <p class="menu-hero__lede">Halal Chinese Muslim cooking in Wangsa Maju, in the
+        Lanzhou tradition — <span lang="zh">品味正宗兰州味道</span>. Hand-pulled beef noodles
+        and fried noodles from the kitchen, or build a malatang bowl by hand at the chiller and
+        pay by weight.</p>
     </div>
     <figure class="menu-hero__shot">
       <picture>
@@ -229,23 +230,221 @@
   </section>
 
   <div class="proto" role="note">
-    <b>Prototype</b> — the ordering flow below is a working interface demonstration.
-    The ingredient list and prices are placeholders, not Sup &amp; Api’s actual menu, and no
-    order is placed or charged. Ask the counter for today’s board.
+    <b>Prototype</b> — dish names and prices below are Sup &amp; Api’s own, read from the
+    printed menu in store. The ordering flow is a working interface demonstration: no order is
+    placed and nothing is charged. Confirm today’s prices at the counter.
   </div>
 
   <section class="order" id="order" aria-labelledby="order-h">
     <div class="section__head">
       <p class="eyebrow">Order online</p>
-      <h2 id="order-h">Build your bowl</h2>
+      <h2 id="order-h">Order from the menu</h2>
       <span class="rule" aria-hidden="true"></span>
     </div>
 
     <div class="order-grid">
       <div class="order-main">
 
-        <fieldset class="step" id="step-style">
-          <legend><span class="step__n">1</span> Choose your style</legend>
+
+
+
+        <fieldset class="step" id="step-items">
+          <legend><span class="step__n">1</span> Choose your dishes</legend>
+          <p class="step__hint">Read from the restaurant's printed menu. Prices are theirs, as
+            shown in store.</p>
+
+      <section class="cat" id="cat-noodles" aria-labelledby="cat-noodles-h">
+        <h3 id="cat-noodles-h">Hand-pulled noodles <span lang="zh">拉面</span></h3><p class="cat__note">Prices are not printed on the in-store lightbox for these — confirm at the counter.</p>
+        <ul class="items" role="list">
+          <li class="item" data-item="clearsoup" data-name="Clear Soup Beef Noodles" data-price="0">
+            <span class="item__media"><picture><source type="image/avif" srcset="assets/img/dishes/clear-soup-180.avif 180w, assets/img/dishes/clear-soup-360.avif 360w" sizes="72px"><source type="image/webp" srcset="assets/img/dishes/clear-soup-180.webp 180w, assets/img/dishes/clear-soup-360.webp 360w" sizes="72px"><img src="assets/img/dishes/clear-soup-360.jpg" width="360" height="360" loading="lazy" decoding="async" alt="A bowl of clear soup beef noodles with sliced beef, daikon and chopped coriander."></picture></span>
+            <span class="item__body">
+              <span class="item__name">Clear Soup Beef Noodles</span>
+              <span class="item__zh" lang="zh">清汤牛肉面</span>
+              <span class="item__price"> <span class="item__ask">Price at counter</span></span>
+            </span>
+            <span class="item__qty">
+              <button class="qty" type="button" data-act="dec" aria-label="Remove one Clear Soup Beef Noodles">&minus;</button>
+              <output class="qty__n" aria-live="polite" aria-label="Clear Soup Beef Noodles quantity">0</output>
+              <button class="qty" type="button" data-act="inc" aria-label="Add one Clear Soup Beef Noodles">+</button>
+            </span>
+          </li>
+          <li class="item" data-item="braisedsoup" data-name="Braised Beef Noodles" data-price="0">
+            <span class="item__media"><picture><source type="image/avif" srcset="assets/img/dishes/braised-soup-180.avif 180w, assets/img/dishes/braised-soup-360.avif 360w" sizes="72px"><source type="image/webp" srcset="assets/img/dishes/braised-soup-180.webp 180w, assets/img/dishes/braised-soup-360.webp 360w" sizes="72px"><img src="assets/img/dishes/braised-soup-360.jpg" width="360" height="360" loading="lazy" decoding="async" alt="A bowl of braised beef noodles in red chilli broth with beef chunks and greens."></picture></span>
+            <span class="item__body">
+              <span class="item__name">Braised Beef Noodles</span>
+              <span class="item__zh" lang="zh">红烧牛肉面</span>
+              <span class="item__price"> <span class="item__ask">Price at counter</span></span>
+            </span>
+            <span class="item__qty">
+              <button class="qty" type="button" data-act="dec" aria-label="Remove one Braised Beef Noodles">&minus;</button>
+              <output class="qty__n" aria-live="polite" aria-label="Braised Beef Noodles quantity">0</output>
+              <button class="qty" type="button" data-act="inc" aria-label="Add one Braised Beef Noodles">+</button>
+            </span>
+          </li>
+          <li class="item" data-item="cuminmix" data-name="Cumin Beef Mixed Noodles" data-price="0">
+            <span class="item__media"><picture><source type="image/avif" srcset="assets/img/dishes/cumin-beef-180.avif 180w, assets/img/dishes/cumin-beef-360.avif 360w" sizes="72px"><source type="image/webp" srcset="assets/img/dishes/cumin-beef-180.webp 180w, assets/img/dishes/cumin-beef-360.webp 360w" sizes="72px"><img src="assets/img/dishes/cumin-beef-360.jpg" width="360" height="360" loading="lazy" decoding="async" alt="A plate of cumin beef mixed noodles with sliced beef, peppers and onion."></picture></span>
+            <span class="item__body">
+              <span class="item__name">Cumin Beef Mixed Noodles</span>
+              <span class="item__zh" lang="zh">孜然牛肉拌面</span>
+              <span class="item__price"> <span class="item__ask">Price at counter</span></span>
+            </span>
+            <span class="item__qty">
+              <button class="qty" type="button" data-act="dec" aria-label="Remove one Cumin Beef Mixed Noodles">&minus;</button>
+              <output class="qty__n" aria-live="polite" aria-label="Cumin Beef Mixed Noodles quantity">0</output>
+              <button class="qty" type="button" data-act="inc" aria-label="Add one Cumin Beef Mixed Noodles">+</button>
+            </span>
+          </li>
+          <li class="item" data-item="braisedmix" data-name="Braised Beef Mixed Noodles" data-price="0">
+            <span class="item__media"><picture><source type="image/avif" srcset="assets/img/dishes/braised-mixed-180.avif 180w, assets/img/dishes/braised-mixed-360.avif 360w" sizes="72px"><source type="image/webp" srcset="assets/img/dishes/braised-mixed-180.webp 180w, assets/img/dishes/braised-mixed-360.webp 360w" sizes="72px"><img src="assets/img/dishes/braised-mixed-360.jpg" width="360" height="360" loading="lazy" decoding="async" alt="A plate of braised beef mixed noodles with diced beef and peppers."></picture></span>
+            <span class="item__body">
+              <span class="item__name">Braised Beef Mixed Noodles</span>
+              <span class="item__zh" lang="zh">红烧牛肉拌面</span>
+              <span class="item__price"> <span class="item__ask">Price at counter</span></span>
+            </span>
+            <span class="item__qty">
+              <button class="qty" type="button" data-act="dec" aria-label="Remove one Braised Beef Mixed Noodles">&minus;</button>
+              <output class="qty__n" aria-live="polite" aria-label="Braised Beef Mixed Noodles quantity">0</output>
+              <button class="qty" type="button" data-act="inc" aria-label="Add one Braised Beef Mixed Noodles">+</button>
+            </span>
+          </li>
+        </ul>
+      </section>
+      <section class="cat" id="cat-fried" aria-labelledby="cat-fried-h">
+        <h3 id="cat-fried-h">Fried noodles <span lang="zh">炒面</span></h3>
+        <ul class="items" role="list">
+          <li class="item" data-item="beeffried" data-name="Beef Fried Noodles" data-price="1590">
+            <span class="item__media"><picture><source type="image/avif" srcset="assets/img/dishes/beef-fried-180.avif 180w, assets/img/dishes/beef-fried-360.avif 360w" sizes="72px"><source type="image/webp" srcset="assets/img/dishes/beef-fried-180.webp 180w, assets/img/dishes/beef-fried-360.webp 360w" sizes="72px"><img src="assets/img/dishes/beef-fried-360.jpg" width="360" height="360" loading="lazy" decoding="async" alt="A plate of beef fried noodles with sliced beef and vegetables."></picture></span>
+            <span class="item__body">
+              <span class="item__name">Beef Fried Noodles</span>
+              <span class="item__zh" lang="zh">牛肉炒面</span>
+              <span class="item__price"> <b>RM 15.90</b></span>
+            </span>
+            <span class="item__qty">
+              <button class="qty" type="button" data-act="dec" aria-label="Remove one Beef Fried Noodles">&minus;</button>
+              <output class="qty__n" aria-live="polite" aria-label="Beef Fried Noodles quantity">0</output>
+              <button class="qty" type="button" data-act="inc" aria-label="Add one Beef Fried Noodles">+</button>
+            </span>
+          </li>
+          <li class="item" data-item="lambfried" data-name="Lamb Fried Noodles" data-price="1590">
+            <span class="item__media"><picture><source type="image/avif" srcset="assets/img/dishes/lamb-fried-180.avif 180w, assets/img/dishes/lamb-fried-360.avif 360w" sizes="72px"><source type="image/webp" srcset="assets/img/dishes/lamb-fried-180.webp 180w, assets/img/dishes/lamb-fried-360.webp 360w" sizes="72px"><img src="assets/img/dishes/lamb-fried-360.jpg" width="360" height="360" loading="lazy" decoding="async" alt="A plate of lamb fried noodles with lamb, peppers and onion."></picture></span>
+            <span class="item__body">
+              <span class="item__name">Lamb Fried Noodles</span>
+              <span class="item__zh" lang="zh">羊肉炒面</span>
+              <span class="item__price"> <b>RM 15.90</b></span>
+            </span>
+            <span class="item__qty">
+              <button class="qty" type="button" data-act="dec" aria-label="Remove one Lamb Fried Noodles">&minus;</button>
+              <output class="qty__n" aria-live="polite" aria-label="Lamb Fried Noodles quantity">0</output>
+              <button class="qty" type="button" data-act="inc" aria-label="Add one Lamb Fried Noodles">+</button>
+            </span>
+          </li>
+          <li class="item" data-item="chickenfried" data-name="Chicken Fried Noodles" data-price="1590">
+            <span class="item__media"><picture><source type="image/avif" srcset="assets/img/dishes/chicken-fried-180.avif 180w, assets/img/dishes/chicken-fried-360.avif 360w" sizes="72px"><source type="image/webp" srcset="assets/img/dishes/chicken-fried-180.webp 180w, assets/img/dishes/chicken-fried-360.webp 360w" sizes="72px"><img src="assets/img/dishes/chicken-fried-360.jpg" width="360" height="360" loading="lazy" decoding="async" alt="A plate of chicken fried noodles with chicken pieces and spring onion."></picture></span>
+            <span class="item__body">
+              <span class="item__name">Chicken Fried Noodles</span>
+              <span class="item__zh" lang="zh">鸡肉炒面</span>
+              <span class="item__price"> <b>RM 15.90</b></span>
+            </span>
+            <span class="item__qty">
+              <button class="qty" type="button" data-act="dec" aria-label="Remove one Chicken Fried Noodles">&minus;</button>
+              <output class="qty__n" aria-live="polite" aria-label="Chicken Fried Noodles quantity">0</output>
+              <button class="qty" type="button" data-act="inc" aria-label="Add one Chicken Fried Noodles">+</button>
+            </span>
+          </li>
+        </ul>
+      </section>
+      <section class="cat" id="cat-cold" aria-labelledby="cat-cold-h">
+        <h3 id="cat-cold-h">Cold dishes <span lang="zh">凉菜</span></h3>
+        <ul class="items" role="list">
+          <li class="item" data-item="jiaomaji" data-name="Spicy Chicken with Peppers" data-price="2300">
+            <span class="item__media item__media--ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-8 8 8 8 0 0 1-8-8Z"/><path d="M9 7.5c0-.9.7-1.3.7-2.2M12 7c0-1.1.9-1.6.9-2.7M15 7.6c0-.8.6-1.2.6-2"/></svg></span>
+            <span class="item__body">
+              <span class="item__name">Spicy Chicken with Peppers</span>
+              <span class="item__zh" lang="zh">椒麻鸡</span>
+              <span class="item__price"> <b>RM 23.00</b> <span>each</span></span>
+            </span>
+            <span class="item__qty">
+              <button class="qty" type="button" data-act="dec" aria-label="Remove one Spicy Chicken with Peppers">&minus;</button>
+              <output class="qty__n" aria-live="polite" aria-label="Spicy Chicken with Peppers quantity">0</output>
+              <button class="qty" type="button" data-act="inc" aria-label="Add one Spicy Chicken with Peppers">+</button>
+            </span>
+          </li>
+          <li class="item" data-item="muer" data-name="Cold Mixed Black Fungus" data-price="1000">
+            <span class="item__media item__media--ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-8 8 8 8 0 0 1-8-8Z"/><path d="M9 7.5c0-.9.7-1.3.7-2.2M12 7c0-1.1.9-1.6.9-2.7M15 7.6c0-.8.6-1.2.6-2"/></svg></span>
+            <span class="item__body">
+              <span class="item__name">Cold Mixed Black Fungus</span>
+              <span class="item__zh" lang="zh">凉拌木耳</span>
+              <span class="item__price"> <b>RM 10.00</b> <span>each</span></span>
+            </span>
+            <span class="item__qty">
+              <button class="qty" type="button" data-act="dec" aria-label="Remove one Cold Mixed Black Fungus">&minus;</button>
+              <output class="qty__n" aria-live="polite" aria-label="Cold Mixed Black Fungus quantity">0</output>
+              <button class="qty" type="button" data-act="inc" aria-label="Add one Cold Mixed Black Fungus">+</button>
+            </span>
+          </li>
+          <li class="item" data-item="tudousi" data-name="Shredded Potatoes" data-price="1000">
+            <span class="item__media item__media--ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-8 8 8 8 0 0 1-8-8Z"/><path d="M9 7.5c0-.9.7-1.3.7-2.2M12 7c0-1.1.9-1.6.9-2.7M15 7.6c0-.8.6-1.2.6-2"/></svg></span>
+            <span class="item__body">
+              <span class="item__name">Shredded Potatoes</span>
+              <span class="item__zh" lang="zh">凉拌土豆丝</span>
+              <span class="item__price"> <b>RM 10.00</b> <span>each</span></span>
+            </span>
+            <span class="item__qty">
+              <button class="qty" type="button" data-act="dec" aria-label="Remove one Shredded Potatoes">&minus;</button>
+              <output class="qty__n" aria-live="polite" aria-label="Shredded Potatoes quantity">0</output>
+              <button class="qty" type="button" data-act="inc" aria-label="Add one Shredded Potatoes">+</button>
+            </span>
+          </li>
+        </ul>
+      </section>
+      <section class="cat" id="cat-plates" aria-labelledby="cat-plates-h">
+        <h3 id="cat-plates-h">Plates <span lang="zh">大盘</span></h3><p class="cat__note">Big and small portions. Adding one orders the big portion.</p>
+        <ul class="items" role="list">
+          <li class="item" data-item="koushuiji" data-name="Drool Chicken" data-price="3500">
+            <span class="item__media item__media--ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-8 8 8 8 0 0 1-8-8Z"/><path d="M9 7.5c0-.9.7-1.3.7-2.2M12 7c0-1.1.9-1.6.9-2.7M15 7.6c0-.8.6-1.2.6-2"/></svg></span>
+            <span class="item__body">
+              <span class="item__name">Drool Chicken</span>
+              <span class="item__zh" lang="zh">口水鸡</span>
+              <span class="item__price"> <span class="item__sizes"><b>RM 35.00</b> <span>Big</span> <b>RM 23.00</b> <span>Small</span></span></span>
+            </span>
+            <span class="item__qty">
+              <button class="qty" type="button" data-act="dec" aria-label="Remove one Drool Chicken">&minus;</button>
+              <output class="qty__n" aria-live="polite" aria-label="Drool Chicken quantity">0</output>
+              <button class="qty" type="button" data-act="inc" aria-label="Add one Drool Chicken">+</button>
+            </span>
+          </li>
+          <li class="item" data-item="roupian" data-name="Sliced Meat (beef / lamb)" data-price="4500">
+            <span class="item__media item__media--ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-8 8 8 8 0 0 1-8-8Z"/><path d="M9 7.5c0-.9.7-1.3.7-2.2M12 7c0-1.1.9-1.6.9-2.7M15 7.6c0-.8.6-1.2.6-2"/></svg></span>
+            <span class="item__body">
+              <span class="item__name">Sliced Meat (beef / lamb)</span>
+              <span class="item__zh" lang="zh">肉片（牛肉／羊肉）</span>
+              <span class="item__price"> <span class="item__sizes"><b>RM 45.00</b> <span>Big</span> <b>RM 30.00</b> <span>Small</span></span></span>
+            </span>
+            <span class="item__qty">
+              <button class="qty" type="button" data-act="dec" aria-label="Remove one Sliced Meat (beef / lamb)">&minus;</button>
+              <output class="qty__n" aria-live="polite" aria-label="Sliced Meat (beef / lamb) quantity">0</output>
+              <button class="qty" type="button" data-act="inc" aria-label="Add one Sliced Meat (beef / lamb)">+</button>
+            </span>
+          </li>
+        </ul>
+      </section>
+        </fieldset>
+
+        <fieldset class="step" id="step-mala">
+          <legend><span class="step__n">2</span> Add a malatang bowl <span lang="zh">麻辣烫</span></legend>
+          <p class="step__hint">Malatang is priced by weight, so it has no fixed price here — you
+            pick the ingredients at the chiller and the counter weighs them.</p>
+          <label class="malaswitch">
+            <input type="checkbox" id="mala-on">
+            <span class="malaswitch__body">
+              <span class="malaswitch__name">Add a malatang bowl, by weight</span>
+              <span class="malaswitch__desc">Choose the style, broth and heat below.</span>
+            </span>
+          </label>
+          <div id="mala-opts" hidden>
+        <fieldset class="substep" id="step-style">
+          <legend>Choose your style</legend>
           <div class="choices choices--2">
             <label class="choice">
               <input type="radio" name="style" value="soup" checked>
@@ -263,9 +462,8 @@
             </label>
           </div>
         </fieldset>
-
-        <fieldset class="step" id="step-broth">
-          <legend><span class="step__n">2</span> Choose your broth</legend>
+        <fieldset class="substep" id="step-broth">
+          <legend>Choose your broth</legend>
           <div class="choices choices--3">
             <label class="choice">
               <input type="radio" name="broth" value="mala" checked>
@@ -284,9 +482,8 @@
             </label>
           </div>
         </fieldset>
-
-        <fieldset class="step" id="step-heat">
-          <legend><span class="step__n">3</span> Set your heat</legend>
+        <fieldset class="substep" id="step-heat">
+          <legend>Set your heat</legend>
           <div class="heatpick" role="radiogroup" aria-label="Spice level">
             <label class="heatpick__o"><input type="radio" name="heat" value="1"><span>1<b>Clear</b></span></label>
             <label class="heatpick__o"><input type="radio" name="heat" value="2"><span>2<b>Mild</b></span></label>
@@ -295,247 +492,25 @@
             <label class="heatpick__o"><input type="radio" name="heat" value="5"><span>5<b>Mala</b></span></label>
           </div>
         </fieldset>
-
-        <fieldset class="step" id="step-items">
-          <legend><span class="step__n">4</span> Pick your ingredients</legend>
-          <p class="step__hint">Everything is priced by weight. One portion is about 100g.</p>
-          
-      <section class="cat" id="cat-proteins" aria-labelledby="cat-proteins-h">
-        <h3 id="cat-proteins-h">Proteins</h3>
-        <ul class="items" role="list">
-          <li class="item" data-item="beef" data-name="Sliced beef" data-price="480">
-            <span class="item__media"><picture>
-                <source type="image/avif" srcset="assets/img/menu/beef-200.avif 200w, assets/img/menu/beef-400.avif 400w" sizes="(min-width:48rem) 96px, 72px">
-                <source type="image/webp" srcset="assets/img/menu/beef-200.webp 200w, assets/img/menu/beef-400.webp 400w" sizes="(min-width:48rem) 96px, 72px">
-                <img src="assets/img/menu/beef-400.jpg" width="400" height="400" loading="lazy" decoding="async" alt="Rolled slices of marbled beef on a dark slate board">
-              </picture></span>
-            <span class="item__body">
-              <span class="item__name">Sliced beef</span>
-              <span class="item__desc">Marbled, rolled thin for the pot</span>
-              <span class="item__price"><b>RM 4.80</b> <span>/ 100g</span></span>
-            </span>
-            <span class="item__qty">
-              <button class="qty" type="button" data-act="dec" aria-label="Remove one Sliced beef">&minus;</button>
-              <output class="qty__n" aria-live="polite" aria-label="Sliced beef quantity">0</output>
-              <button class="qty" type="button" data-act="inc" aria-label="Add one Sliced beef">+</button>
-            </span>
-          </li>
-          <li class="item" data-item="lamb" data-name="Sliced lamb" data-price="480">
-            <span class="item__media item__media--ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-8 8 8 8 0 0 1-8-8Z"/><path d="M9 7.5c0-.9.7-1.3.7-2.2M12 7c0-1.1.9-1.6.9-2.7M15 7.6c0-.8.6-1.2.6-2"/></svg></span>
-            <span class="item__body">
-              <span class="item__name">Sliced lamb</span>
-              <span class="item__desc">Rolled thin, cooks in seconds</span>
-              <span class="item__price"><b>RM 4.80</b> <span>/ 100g</span></span>
-            </span>
-            <span class="item__qty">
-              <button class="qty" type="button" data-act="dec" aria-label="Remove one Sliced lamb">&minus;</button>
-              <output class="qty__n" aria-live="polite" aria-label="Sliced lamb quantity">0</output>
-              <button class="qty" type="button" data-act="inc" aria-label="Add one Sliced lamb">+</button>
-            </span>
-          </li>
-          <li class="item" data-item="meatball" data-name="Beef meatballs" data-price="480">
-            <span class="item__media item__media--ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-8 8 8 8 0 0 1-8-8Z"/><path d="M9 7.5c0-.9.7-1.3.7-2.2M12 7c0-1.1.9-1.6.9-2.7M15 7.6c0-.8.6-1.2.6-2"/></svg></span>
-            <span class="item__body">
-              <span class="item__name">Beef meatballs</span>
-              <span class="item__desc">Springy, house-seasoned</span>
-              <span class="item__price"><b>RM 4.80</b> <span>/ 100g</span></span>
-            </span>
-            <span class="item__qty">
-              <button class="qty" type="button" data-act="dec" aria-label="Remove one Beef meatballs">&minus;</button>
-              <output class="qty__n" aria-live="polite" aria-label="Beef meatballs quantity">0</output>
-              <button class="qty" type="button" data-act="inc" aria-label="Add one Beef meatballs">+</button>
-            </span>
-          </li>
-          <li class="item" data-item="fishtofu" data-name="Fish tofu" data-price="480">
-            <span class="item__media item__media--ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-8 8 8 8 0 0 1-8-8Z"/><path d="M9 7.5c0-.9.7-1.3.7-2.2M12 7c0-1.1.9-1.6.9-2.7M15 7.6c0-.8.6-1.2.6-2"/></svg></span>
-            <span class="item__body">
-              <span class="item__name">Fish tofu</span>
-              <span class="item__desc">Golden, mild, soaks up broth</span>
-              <span class="item__price"><b>RM 4.80</b> <span>/ 100g</span></span>
-            </span>
-            <span class="item__qty">
-              <button class="qty" type="button" data-act="dec" aria-label="Remove one Fish tofu">&minus;</button>
-              <output class="qty__n" aria-live="polite" aria-label="Fish tofu quantity">0</output>
-              <button class="qty" type="button" data-act="inc" aria-label="Add one Fish tofu">+</button>
-            </span>
-          </li>
-          <li class="item" data-item="quailegg" data-name="Quail eggs" data-price="480">
-            <span class="item__media item__media--ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-8 8 8 8 0 0 1-8-8Z"/><path d="M9 7.5c0-.9.7-1.3.7-2.2M12 7c0-1.1.9-1.6.9-2.7M15 7.6c0-.8.6-1.2.6-2"/></svg></span>
-            <span class="item__body">
-              <span class="item__name">Quail eggs</span>
-              <span class="item__desc">Whole, soft-boiled</span>
-              <span class="item__price"><b>RM 4.80</b> <span>/ 100g</span></span>
-            </span>
-            <span class="item__qty">
-              <button class="qty" type="button" data-act="dec" aria-label="Remove one Quail eggs">&minus;</button>
-              <output class="qty__n" aria-live="polite" aria-label="Quail eggs quantity">0</output>
-              <button class="qty" type="button" data-act="inc" aria-label="Add one Quail eggs">+</button>
-            </span>
-          </li>
-        </ul>
-      </section>
-      <section class="cat" id="cat-vegetables" aria-labelledby="cat-vegetables-h">
-        <h3 id="cat-vegetables-h">Vegetables</h3>
-        <ul class="items" role="list">
-          <li class="item" data-item="bokchoy" data-name="Bok choy" data-price="480">
-            <span class="item__media"><picture>
-                <source type="image/avif" srcset="assets/img/menu/bok-choy-200.avif 200w, assets/img/menu/bok-choy-400.avif 400w" sizes="(min-width:48rem) 96px, 72px">
-                <source type="image/webp" srcset="assets/img/menu/bok-choy-200.webp 200w, assets/img/menu/bok-choy-400.webp 400w" sizes="(min-width:48rem) 96px, 72px">
-                <img src="assets/img/menu/bok-choy-400.jpg" width="400" height="400" loading="lazy" decoding="async" alt="A head of fresh green bok choy on a dark slate board">
-              </picture></span>
-            <span class="item__body">
-              <span class="item__name">Bok choy</span>
-              <span class="item__desc">Crisp stems, sweet leaf</span>
-              <span class="item__price"><b>RM 4.80</b> <span>/ 100g</span></span>
-            </span>
-            <span class="item__qty">
-              <button class="qty" type="button" data-act="dec" aria-label="Remove one Bok choy">&minus;</button>
-              <output class="qty__n" aria-live="polite" aria-label="Bok choy quantity">0</output>
-              <button class="qty" type="button" data-act="inc" aria-label="Add one Bok choy">+</button>
-            </span>
-          </li>
-          <li class="item" data-item="lotus" data-name="Lotus root" data-price="480">
-            <span class="item__media"><picture>
-                <source type="image/avif" srcset="assets/img/menu/lotus-root-200.avif 200w, assets/img/menu/lotus-root-400.avif 400w" sizes="(min-width:48rem) 96px, 72px">
-                <source type="image/webp" srcset="assets/img/menu/lotus-root-200.webp 200w, assets/img/menu/lotus-root-400.webp 400w" sizes="(min-width:48rem) 96px, 72px">
-                <img src="assets/img/menu/lotus-root-400.jpg" width="400" height="400" loading="lazy" decoding="async" alt="Sliced lotus root showing its lace pattern, on dark slate">
-              </picture></span>
-            <span class="item__body">
-              <span class="item__name">Lotus root</span>
-              <span class="item__desc">Snappy, holds its bite</span>
-              <span class="item__price"><b>RM 4.80</b> <span>/ 100g</span></span>
-            </span>
-            <span class="item__qty">
-              <button class="qty" type="button" data-act="dec" aria-label="Remove one Lotus root">&minus;</button>
-              <output class="qty__n" aria-live="polite" aria-label="Lotus root quantity">0</output>
-              <button class="qty" type="button" data-act="inc" aria-label="Add one Lotus root">+</button>
-            </span>
-          </li>
-          <li class="item" data-item="shiitake" data-name="Shiitake" data-price="480">
-            <span class="item__media"><picture>
-                <source type="image/avif" srcset="assets/img/menu/shiitake-200.avif 200w, assets/img/menu/shiitake-400.avif 400w" sizes="(min-width:48rem) 96px, 72px">
-                <source type="image/webp" srcset="assets/img/menu/shiitake-200.webp 200w, assets/img/menu/shiitake-400.webp 400w" sizes="(min-width:48rem) 96px, 72px">
-                <img src="assets/img/menu/shiitake-400.jpg" width="400" height="400" loading="lazy" decoding="async" alt="A cluster of fresh shiitake mushrooms on dark slate">
-              </picture></span>
-            <span class="item__body">
-              <span class="item__name">Shiitake</span>
-              <span class="item__desc">Deep, savoury, scored caps</span>
-              <span class="item__price"><b>RM 4.80</b> <span>/ 100g</span></span>
-            </span>
-            <span class="item__qty">
-              <button class="qty" type="button" data-act="dec" aria-label="Remove one Shiitake">&minus;</button>
-              <output class="qty__n" aria-live="polite" aria-label="Shiitake quantity">0</output>
-              <button class="qty" type="button" data-act="inc" aria-label="Add one Shiitake">+</button>
-            </span>
-          </li>
-          <li class="item" data-item="enoki" data-name="Enoki" data-price="480">
-            <span class="item__media item__media--ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-8 8 8 8 0 0 1-8-8Z"/><path d="M9 7.5c0-.9.7-1.3.7-2.2M12 7c0-1.1.9-1.6.9-2.7M15 7.6c0-.8.6-1.2.6-2"/></svg></span>
-            <span class="item__body">
-              <span class="item__name">Enoki</span>
-              <span class="item__desc">Fine, silky bundles</span>
-              <span class="item__price"><b>RM 4.80</b> <span>/ 100g</span></span>
-            </span>
-            <span class="item__qty">
-              <button class="qty" type="button" data-act="dec" aria-label="Remove one Enoki">&minus;</button>
-              <output class="qty__n" aria-live="polite" aria-label="Enoki quantity">0</output>
-              <button class="qty" type="button" data-act="inc" aria-label="Add one Enoki">+</button>
-            </span>
-          </li>
-          <li class="item" data-item="seaweed" data-name="Seaweed" data-price="480">
-            <span class="item__media item__media--ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-8 8 8 8 0 0 1-8-8Z"/><path d="M9 7.5c0-.9.7-1.3.7-2.2M12 7c0-1.1.9-1.6.9-2.7M15 7.6c0-.8.6-1.2.6-2"/></svg></span>
-            <span class="item__body">
-              <span class="item__name">Seaweed</span>
-              <span class="item__desc">Clean, mineral finish</span>
-              <span class="item__price"><b>RM 4.80</b> <span>/ 100g</span></span>
-            </span>
-            <span class="item__qty">
-              <button class="qty" type="button" data-act="dec" aria-label="Remove one Seaweed">&minus;</button>
-              <output class="qty__n" aria-live="polite" aria-label="Seaweed quantity">0</output>
-              <button class="qty" type="button" data-act="inc" aria-label="Add one Seaweed">+</button>
-            </span>
-          </li>
-        </ul>
-      </section>
-      <section class="cat" id="cat-carbs" aria-labelledby="cat-carbs-h">
-        <h3 id="cat-carbs-h">Noodles &amp; carbs</h3>
-        <ul class="items" role="list">
-          <li class="item" data-item="udon" data-name="Udon" data-price="480">
-            <span class="item__media"><picture>
-                <source type="image/avif" srcset="assets/img/menu/udon-200.avif 200w, assets/img/menu/udon-400.avif 400w" sizes="(min-width:48rem) 96px, 72px">
-                <source type="image/webp" srcset="assets/img/menu/udon-200.webp 200w, assets/img/menu/udon-400.webp 400w" sizes="(min-width:48rem) 96px, 72px">
-                <img src="assets/img/menu/udon-400.jpg" width="400" height="400" loading="lazy" decoding="async" alt="A nest of fresh udon noodles on a dark slate board">
-              </picture></span>
-            <span class="item__body">
-              <span class="item__name">Udon</span>
-              <span class="item__desc">Thick, chewy, house favourite</span>
-              <span class="item__price"><b>RM 4.80</b> <span>/ 100g</span></span>
-            </span>
-            <span class="item__qty">
-              <button class="qty" type="button" data-act="dec" aria-label="Remove one Udon">&minus;</button>
-              <output class="qty__n" aria-live="polite" aria-label="Udon quantity">0</output>
-              <button class="qty" type="button" data-act="inc" aria-label="Add one Udon">+</button>
-            </span>
-          </li>
-          <li class="item" data-item="sweetpotato" data-name="Sweet potato noodle" data-price="480">
-            <span class="item__media item__media--ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-8 8 8 8 0 0 1-8-8Z"/><path d="M9 7.5c0-.9.7-1.3.7-2.2M12 7c0-1.1.9-1.6.9-2.7M15 7.6c0-.8.6-1.2.6-2"/></svg></span>
-            <span class="item__body">
-              <span class="item__name">Sweet potato noodle</span>
-              <span class="item__desc">Glassy, slippery, holds mala</span>
-              <span class="item__price"><b>RM 4.80</b> <span>/ 100g</span></span>
-            </span>
-            <span class="item__qty">
-              <button class="qty" type="button" data-act="dec" aria-label="Remove one Sweet potato noodle">&minus;</button>
-              <output class="qty__n" aria-live="polite" aria-label="Sweet potato noodle quantity">0</output>
-              <button class="qty" type="button" data-act="inc" aria-label="Add one Sweet potato noodle">+</button>
-            </span>
-          </li>
-          <li class="item" data-item="instant" data-name="Instant noodle" data-price="480">
-            <span class="item__media item__media--ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-8 8 8 8 0 0 1-8-8Z"/><path d="M9 7.5c0-.9.7-1.3.7-2.2M12 7c0-1.1.9-1.6.9-2.7M15 7.6c0-.8.6-1.2.6-2"/></svg></span>
-            <span class="item__body">
-              <span class="item__name">Instant noodle</span>
-              <span class="item__desc">The classic late-night pick</span>
-              <span class="item__price"><b>RM 4.80</b> <span>/ 100g</span></span>
-            </span>
-            <span class="item__qty">
-              <button class="qty" type="button" data-act="dec" aria-label="Remove one Instant noodle">&minus;</button>
-              <output class="qty__n" aria-live="polite" aria-label="Instant noodle quantity">0</output>
-              <button class="qty" type="button" data-act="inc" aria-label="Add one Instant noodle">+</button>
-            </span>
-          </li>
-          <li class="item" data-item="rice" data-name="Steamed rice" data-price="480">
-            <span class="item__media item__media--ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-8 8 8 8 0 0 1-8-8Z"/><path d="M9 7.5c0-.9.7-1.3.7-2.2M12 7c0-1.1.9-1.6.9-2.7M15 7.6c0-.8.6-1.2.6-2"/></svg></span>
-            <span class="item__body">
-              <span class="item__name">Steamed rice</span>
-              <span class="item__desc">For soaking what is left</span>
-              <span class="item__price"><b>RM 4.80</b> <span>/ 100g</span></span>
-            </span>
-            <span class="item__qty">
-              <button class="qty" type="button" data-act="dec" aria-label="Remove one Steamed rice">&minus;</button>
-              <output class="qty__n" aria-live="polite" aria-label="Steamed rice quantity">0</output>
-              <button class="qty" type="button" data-act="inc" aria-label="Add one Steamed rice">+</button>
-            </span>
-          </li>
-        </ul>
-      </section>
+          </div>
         </fieldset>
       </div>
 
       <aside class="cart" id="cart" aria-labelledby="cart-h">
-        <h3 id="cart-h">Your bowl</h3>
+        <h3 id="cart-h">Your order</h3>
         <p class="cart__meta" id="cart-meta">Spicy Hot Pot · Mala · Medium</p>
         <ul class="cart__list" id="cart-list" role="list">
-          <li class="cart__empty">Nothing in the bowl yet. Add something from the left.</li>
+          <li class="cart__empty">Nothing selected yet. Add a dish from the left.</li>
         </ul>
         <dl class="cart__totals">
-          <div><dt>Estimated weight</dt><dd id="cart-weight">0 g</dd></div>
-          <div><dt>Broth &amp; base</dt><dd id="cart-base">RM 3.00</dd></div>
-          <div class="cart__grand"><dt>Total</dt><dd id="cart-total">RM 3.00</dd></div>
+          <div class="cart__grand"><dt>Total</dt><dd id="cart-total">RM 0.00</dd></div>
         </dl>
+        <p class="cart__extra" id="cart-extra" hidden></p>
         <button class="btn-block" id="checkout" type="button" disabled>
           <span>Continue to checkout</span>
         </button>
-        <p class="cart__note">Indicative pricing for this prototype. You pay the counter by
-          actual weight.</p>
+        <p class="cart__note">Prices are the restaurant's own, read from its printed menu.
+          Malatang and any unpriced item are settled at the counter.</p>
       </aside>
     </div>
   </section>
