@@ -269,8 +269,16 @@
     <div class="section__head">
       <p class="eyebrow">Reviews</p>
       <h2>4.5 out of 5, across 125 Google reviews</h2>
+      <span class="rule" aria-hidden="true"></span>
     </div>
-    <figure class="quote reveal">
+    <div class="rating reveal">
+      <span class="rating__score">4.5</span>
+      <span class="rating__stars" role="img" aria-label="Rated 4.5 out of 5">
+        <span class="rating__fill" style="--pct:90%"></span>
+      </span>
+      <span class="rating__count">125 Google reviews</span>
+    </div>
+    <figure class="quote reveal" style="--i:1">
       <blockquote>
         <p>“A good halal Chinese spot I've found in KL. The Malatang is very nice with plenty
           of fresh ingredients to choose from. The beef stir-fried noodles are also very tasty
@@ -289,29 +297,49 @@
     <div class="section__head">
       <p class="eyebrow">Visit</p>
       <h2>Find us in Sunway Avila Avenue</h2>
+      <span class="rule" aria-hidden="true"></span>
     </div>
     <div class="visit-grid">
-      <article class="card reveal">
-        <h3>Address</h3>
-        <address>
-          G-07, Sunway Avila Avenue,<br>
-          1, Jalan Seri Wangsa, Taman Sri Rampai,<br>
-          Wangsa Maju, 53300 Kuala Lumpur,<br>
-          Federal Territory of Kuala Lumpur, Malaysia
-        </address>
-        <p class="pluscode">Plus code <b>5PVQ+64</b> Taman Sri Rampai</p>
-        <a class="btn btn--filled btn--sm" href="https://maps.app.goo.gl/9yixVFVDJVkm1ZBU8"
-           target="_blank" rel="noopener">Open in Google Maps</a>
-      </article>
-      <article class="card reveal" style="--i:1">
-        <h3>Hours &amp; contact</h3>
-        <p class="hours"><b>Opens daily at 11:00am.</b><br>
-          Closing time varies — the Google listing always has today's hours.</p>
-        <p><a class="link" href="tel:+60136080971">013-608 0971</a></p>
-        <ul class="chips chips--plain">
-          <li>Dine-in</li><li>Takeaway</li><li>Order online</li>
-        </ul>
-      </article>
+      <div class="visit-cards">
+        <article class="place reveal">
+          <h3>Sup &amp; Api Malatang</h3>
+          <div class="place__row">
+            <span class="place__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg></span>
+            <address>
+              G-07, Sunway Avila Avenue,<br>
+              1, Jalan Seri Wangsa, Taman Sri Rampai,<br>
+              Wangsa Maju, 53300 Kuala Lumpur,<br>
+              Federal Territory of Kuala Lumpur, Malaysia
+            </address>
+          </div>
+          <div class="place__row">
+            <span class="place__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 1.8"/></svg></span>
+            <span><b>Opens daily at 11:00am.</b><br>
+              Closing time varies — the Google listing always has today's hours.</span>
+          </div>
+          <div class="place__row">
+            <span class="place__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3.5h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z"/></svg></span>
+            <a class="link" href="tel:+60136080971">013-608 0971</a>
+          </div>
+          <p class="pluscode">Plus code <b>5PVQ+64</b> Taman Sri Rampai</p>
+          <a class="btn-block" href="https://maps.app.goo.gl/9yixVFVDJVkm1ZBU8"
+             target="_blank" rel="noopener">
+            <span>Get directions</span>
+            <span class="btn-block__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6.5 18.5 12 13 17.5"/></svg></span>
+          </a>
+        </article>
+        <article class="place place--muted reveal" style="--i:1">
+          <h3>How to order</h3>
+          <ul class="chips chips--plain">
+            <li>Dine-in</li><li>Takeaway</li><li>Order online</li>
+          </ul>
+        </article>
+      </div>
+      <figure class="visit-map reveal" style="--i:2">
+        <iframe title="Map showing Sup &amp; Api Malatang at Sunway Avila Avenue, Wangsa Maju, Kuala Lumpur"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=101.731285,3.190539,101.739285,3.195539&amp;layer=mapnik&amp;marker=3.1930391,101.7352853"
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </figure>
     </div>
   </section>
 </main>

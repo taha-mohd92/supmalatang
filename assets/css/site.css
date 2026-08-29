@@ -550,7 +550,9 @@ a { color: var(--primary); text-decoration-thickness: .08em; text-underline-offs
 }
 .menu-card:hover .chips li { border-color: rgba(241, 241, 230, .28); }
 .chips--plain li {
-  border-color: var(--outline); background: var(--primary-cont); color: var(--on-primary-cont);
+  border-color: rgba(29, 53, 87, .22);
+  background: var(--surface-lowest);
+  color: var(--on-surface);
 }
 .band__note { margin: 2.25rem 0 0; color: rgba(241, 241, 230, .92); font-size: .92rem; }
 
@@ -570,7 +572,97 @@ a { color: var(--primary); text-decoration-thickness: .08em; text-underline-offs
 /* ── Visit ─────────────────────────────────────────────────────────────── */
 .visit-grid {
   display: grid; gap: var(--gap);
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  grid-template-columns: 1fr;
+}
+.visit-cards { display: grid; gap: var(--gap); align-content: start; }
+
+/* Location card — bone-white with the spice-heat spine Stitch uses to mark
+   the active branch. */
+.place {
+  position: relative; overflow: hidden;
+  padding: clamp(1.4rem, 3vw, 2rem);
+  padding-inline-start: clamp(1.6rem, 3.2vw, 2.25rem);
+  border-radius: var(--r-lg);
+  background: var(--surface-lowest);
+  box-shadow: inset 0 0 0 1px rgba(29, 53, 87, .14);
+}
+.place::before {
+  content: ""; position: absolute; inset-block: 0; inset-inline-start: 0;
+  width: 4px; background: var(--primary-hot);
+}
+.place--muted { background: var(--surface); }
+.place--muted::before { background: var(--outline-variant); }
+.place h3 { margin-bottom: .9rem; }
+.place__row {
+  display: flex; align-items: flex-start; gap: .75rem;
+  margin: 0 0 .9rem;
+}
+.place__icon {
+  flex: none; width: 1.25rem; height: 1.25rem; margin-top: .18rem;
+  color: var(--primary-hot);
+}
+.place__icon svg { width: 100%; height: 100%; display: block; }
+.place address { font-style: normal; }
+.pluscode {
+  font-family: var(--font-label); font-size: .82rem;
+  color: var(--on-surface-dim); margin: 0 0 1.25rem;
+}
+
+/* Full-width charcoal action that warms to spice-heat, per Stitch */
+.btn-block {
+  display: flex; align-items: center; justify-content: center; gap: .6rem;
+  padding: .95rem 1.25rem;
+  border-radius: var(--r-md);
+  background: var(--charcoal); color: var(--on-dark);
+  font-family: var(--font-label); font-size: .86rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; text-decoration: none;
+  transition: background-color .3s var(--ease-emph);
+}
+.btn-block:hover, .btn-block:focus-visible { background: var(--primary); }
+.btn-block__arrow { width: 1.1rem; height: 1.1rem; display: block; }
+.btn-block__arrow svg { width: 100%; height: 100%; display: block; }
+.btn-block:hover .btn-block__arrow { transform: translateX(3px); }
+.btn-block__arrow { transition: transform .3s var(--ease-emph); }
+
+.visit-map {
+  margin: 0; overflow: hidden; display: flex;
+  border-radius: var(--r-lg);
+  box-shadow: inset 0 0 0 1px rgba(29, 53, 87, .14);
+  background: var(--surface-3);
+}
+.visit-map iframe {
+  display: block; width: 100%; height: 100%;
+  min-height: clamp(19rem, 42vw, 26rem);
+  border: 0;
+}
+
+/* Rating summary — Space Grotesk figure, single-element star bar */
+.rating {
+  display: flex; align-items: center; flex-wrap: wrap; gap: .5rem .9rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+.rating__score {
+  font-family: var(--font-label); font-size: 2.4rem; font-weight: 700;
+  line-height: 1; letter-spacing: -.02em; color: var(--on-surface);
+}
+/* Five stars cut from one masked bar: the fill child is clipped by the same
+   mask, so a percentage width gives an exact half-star at 4.5. */
+.rating__stars {
+  position: relative; display: block;
+  width: 8.75rem; height: 1.75rem;
+  background: var(--outline-variant);
+  --star-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 1.6l2.3 4.9 5.2.7-3.8 3.6.9 5.2-4.6-2.5-4.6 2.5.9-5.2L2.5 7.2l5.2-.7z"/></svg>');
+  -webkit-mask-image: var(--star-mask); mask-image: var(--star-mask);
+  -webkit-mask-size: 1.75rem 1.75rem; mask-size: 1.75rem 1.75rem;
+  -webkit-mask-repeat: repeat-x; mask-repeat: repeat-x;
+}
+.rating__fill {
+  position: absolute; inset-block: 0; inset-inline-start: 0;
+  width: var(--pct); background: var(--primary-hot);
+}
+.rating__count {
+  font-family: var(--font-label); font-size: .86rem; font-weight: 500;
+  letter-spacing: .04em; color: var(--on-surface-dim);
 }
 address { font-style: normal; line-height: 1.75; }
 .pluscode { margin-top: .9rem; font-size: .92rem; color: var(--on-surface-dim); }
@@ -580,6 +672,7 @@ address { font-style: normal; line-height: 1.75; }
 .site-foot {
   padding: clamp(3rem, 7vw, 5rem) var(--pad) 7.5rem;
   background: var(--ink); color: var(--on-dark-dim);
+  border-block-start: 3px solid var(--primary-hot);
 }
 .foot-grid {
   display: flex; flex-wrap: wrap; gap: var(--gap);
@@ -589,7 +682,12 @@ address { font-style: normal; line-height: 1.75; }
 .brand--foot { margin: 0 0 .75rem; color: var(--on-dark); }
 .foot-note { margin: 0; font-size: .9rem; }
 .site-foot nav { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; }
-.site-foot nav a { color: var(--on-dark-dim); text-decoration: none; font-size: .93rem; }
+.site-foot nav a {
+  color: var(--on-dark-dim); text-decoration: none;
+  font-family: var(--font-label); font-size: .78rem; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  transition: color .3s var(--ease-emph);
+}
 .site-foot nav a:hover { color: var(--on-dark); text-decoration: underline; }
 .copyright { margin: 1.5rem 0 0; font-size: .82rem; }
 
@@ -660,6 +758,7 @@ address { font-style: normal; line-height: 1.75; }
 @media (min-width: 62rem) {
   .bento__media   { grid-column: span 5; }
   .bento__control { grid-column: span 7; }
+  .visit-grid { grid-template-columns: 5fr 7fr; align-items: stretch; }
   .site-nav { display: flex; }
   .hero__card { display: block; }
   .hero__inner { max-width: 46rem; }
