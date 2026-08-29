@@ -476,36 +476,83 @@ a { color: var(--primary); text-decoration-thickness: .08em; text-underline-offs
 .band__back  { background-image: url("../img/layer-back.webp"); opacity: .95; }
 .band__mid   { background-image: url("../img/layer-mid.webp"); opacity: .5; }
 .band__front { background-image: url("../img/layer-front.webp"); opacity: .26; }
+/* Governs worst-case luminance: the parallax bokeh is bright in places and
+   was undercutting the chips and the footnote. */
+.band::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(90% 70% at 50% 45%, rgba(14, 24, 40, .34), rgba(14, 24, 40, .62));
+}
 .band__inner { position: relative; }
 
 .menu-grid {
   display: grid; gap: var(--gap);
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 15.5rem), 1fr));
 }
+/* Stitch's short red rule, tying section heads together */
+.rule {
+  display: block; width: 4rem; height: 3px; margin-top: 1.1rem;
+  background: var(--primary-hot);
+}
+
 .menu-card {
-  padding: clamp(1.3rem, 3vw, 1.9rem);
+  position: relative; overflow: hidden;
+  padding: clamp(1.4rem, 3vw, 2rem);
   border: 1px solid var(--outline-dark);
   border-radius: var(--r-lg);
-  background: rgba(255, 243, 236, .05);
+  background: rgba(241, 241, 230, .05);
+  backdrop-filter: blur(6px);
+  transition: border-color var(--dur) var(--ease-emph),
+              transform var(--dur) var(--ease-emph),
+              background-color var(--dur) var(--ease-emph);
 }
+.menu-card:hover, .menu-card:focus-within {
+  border-color: rgba(230, 57, 70, .55);
+  background: rgba(241, 241, 230, .08);
+  transform: translateY(-3px);
+}
+/* Corner badge, charcoal on the card edge */
+.menu-card__badge {
+  position: absolute; inset-block-start: 0; inset-inline-end: 0;
+  padding: .32rem .7rem;
+  border-end-start-radius: var(--r-lg);
+  background: rgba(20, 32, 50, .88); color: var(--on-dark);
+  backdrop-filter: blur(6px);
+  font-family: var(--font-label); font-size: .68rem; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+}
+/* Icon medallion — the one place the system allows a full round */
+.menu-card__icon {
+  display: grid; place-items: center;
+  width: 2.75rem; height: 2.75rem; margin-bottom: 1.1rem;
+  border-radius: 999px;
+  background: rgba(230, 57, 70, .22);
+  color: #ffb3b1;   /* inverse-primary: the palette's own on-dark red */
+}
+.menu-card__icon svg { width: 1.45rem; height: 1.45rem; display: block; }
 .menu-card h3 { color: var(--on-dark); }
 .menu-card p { color: var(--on-dark-dim); }
 .menu-card--accent {
-  background: linear-gradient(160deg, rgba(226, 84, 47, .28), rgba(233, 162, 59, .12));
-  border-color: rgba(255, 214, 196, .3);
+  background: linear-gradient(160deg, rgba(230, 57, 70, .26), rgba(244, 162, 97, .10));
+  border-color: rgba(255, 214, 196, .32);
 }
+.menu-card--accent:hover { background: linear-gradient(160deg, rgba(230, 57, 70, .32), rgba(244, 162, 97, .14)); }
 
 .chips { display: flex; flex-wrap: wrap; gap: .45rem; margin: 0; padding: 0; list-style: none; }
 .chips li {
-  padding: .4rem .85rem; border-radius: var(--r-full);
-  border: 1px solid var(--outline-dark);
-  background: rgba(255, 243, 236, .07);
-  font-size: .86rem; color: var(--on-dark);
+  padding: .4rem .8rem; border-radius: var(--r-md);
+  border: 1px solid rgba(241, 241, 230, .22);
+  background: rgba(12, 20, 34, .55);
+  font-family: var(--font-label);
+  font-size: .8rem; font-weight: 500; letter-spacing: .01em;
+  color: var(--on-dark);
+  transition: border-color .3s var(--ease-emph), background-color .3s var(--ease-emph);
 }
+.menu-card:hover .chips li { border-color: rgba(241, 241, 230, .28); }
 .chips--plain li {
   border-color: var(--outline); background: var(--primary-cont); color: var(--on-primary-cont);
 }
-.band__note { margin: 2.25rem 0 0; color: var(--on-dark-dim); font-size: .92rem; }
+.band__note { margin: 2.25rem 0 0; color: rgba(241, 241, 230, .92); font-size: .92rem; }
 
 /* ── Reviews ───────────────────────────────────────────────────────────── */
 .quote {
