@@ -1,2 +1,5 @@
 tools/screenshots/
 __pycache__/
+
+# Local MCP config — contains a plaintext API key, never commit
+.mcp.json

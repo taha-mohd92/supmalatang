@@ -35,8 +35,14 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<link rel="preload" as="image" href="assets/video/hero-poster.jpg" fetchpriority="high">
-<link rel="stylesheet" href="assets/css/site.css">
+<link rel="preload" as="image" fetchpriority="high"
+        href="assets/img/hero/hero-1152.avif"
+        imagesrcset="assets/img/hero/hero-768.avif 768w,
+                     assets/img/hero/hero-1152.avif 1152w,
+                     assets/img/hero/hero-1376.avif 1376w" imagesizes="100vw">
+  <link rel="preload" href="assets/fonts/sora-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/hanken-grotesk-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/site.css">
 <script>document.documentElement.classList.replace('no-js','js');</script>
 </head>
 <body>
@@ -67,13 +73,28 @@
   <!-- ── Hero: three parallax depths over a looping ambient plate ── -->
   <section class="hero" id="hero" data-parallax-scene>
     <div class="hero__media" data-parallax-layer data-depth="0.10" aria-hidden="true">
-      <video class="hero__video" id="hero-video"
-             poster="assets/video/hero-poster.jpg"
-             autoplay muted loop playsinline disablepictureinpicture
-             preload="metadata" tabindex="-1">
-        <source src="assets/video/hero.webm" type="video/webm">
-        <source src="assets/video/hero.mp4" type="video/mp4">
-      </video>
+      <picture>
+        <!-- Art direction: phones get a portrait crop centred on the bowl, so the
+             food reads as food instead of an over-zoomed slice of a wide frame. -->
+        <source type="image/avif" media="(max-width: 47rem)" sizes="100vw"
+                srcset="assets/img/hero/hero-p-420.avif 420w,
+                        assets/img/hero/hero-p-640.avif 640w,
+                        assets/img/hero/hero-p-840.avif 840w">
+        <source type="image/webp" media="(max-width: 47rem)" sizes="100vw"
+                srcset="assets/img/hero/hero-p-420.webp 420w,
+                        assets/img/hero/hero-p-640.webp 640w,
+                        assets/img/hero/hero-p-840.webp 840w">
+        <source type="image/avif" sizes="100vw"
+                srcset="assets/img/hero/hero-768.avif 768w,
+                        assets/img/hero/hero-1152.avif 1152w,
+                        assets/img/hero/hero-1376.avif 1376w">
+        <source type="image/webp" sizes="100vw"
+                srcset="assets/img/hero/hero-768.webp 768w,
+                        assets/img/hero/hero-1152.webp 1152w,
+                        assets/img/hero/hero-1376.webp 1376w">
+        <img class="hero__img" src="assets/img/hero/hero-1152.jpg" alt=""
+             width="1376" height="768" fetchpriority="high" decoding="sync">
+      </picture>
       <span class="hero__scrim"></span>
     </div>
     <div class="hero__spice" data-parallax-layer data-depth="0.26" aria-hidden="true"></div>

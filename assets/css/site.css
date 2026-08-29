@@ -1,46 +1,90 @@
 /* ============================================================================
-   Sup & Api Malatang — Stitch/Material-3 flavoured design system
-   Tokens → primitives → components. No framework, no webfont request.
+   Sup & Api Malatang — design system extracted from Stitch
+   Source of truth: Stitch project 7770238085652324842
+   "Accessible Multi-Layer Parallax Site" → design.md + Ritual Scroll Journey
+   Brand: Modern Industrial — the "Api" (fire) of Szechuan heat against the
+   "Sup" of bone broth. Sharp shapes, tonal depth, no decorative shadows.
    ========================================================================= */
 
+/* Self-hosted variable subsets (latin). One file per family, no 3rd-party origin. */
+@font-face {
+  font-family: "Sora";
+  src: url("../fonts/sora-var.woff2") format("woff2-variations");
+  font-weight: 400 800; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Hanken Grotesk";
+  src: url("../fonts/hanken-grotesk-var.woff2") format("woff2-variations");
+  font-weight: 300 800; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("../fonts/space-grotesk-var.woff2") format("woff2-variations");
+  font-weight: 300 700; font-style: normal; font-display: swap;
+}
+
 :root {
-  /* colour roles */
-  --ink:            #140a0c;
-  --ink-2:          #241417;
-  --surface:        #fff8f5;
-  --surface-2:      #fdeee7;
-  --surface-3:      #f8ddd2;
-  --on-surface:     #2b171a;
-  --on-surface-dim: #6d5257;
-  --primary:        #c4331d;
-  --primary-hot:    #e2542f;
-  --on-primary:     #fff6f2;
-  --primary-cont:   #ffdcd1;
-  --on-primary-cont:#5c1408;
-  --gold:           #e9a23b;
-  --outline:        #e6c8bd;
-  --outline-dark:   rgba(255, 236, 228, .18);
-  --on-dark:        #fff3ec;
-  --on-dark-dim:    #d8b6ab;
+  /* ---- colour roles (Stitch semantic palette) ---------------------------- */
+  /* Bone White grounds the page — it mimics the creaminess of the signature
+     broth and keeps the high-contrast palette from feeling aggressive. */
+  --bone:           #f1f1e6;
+  --surface:        #f1f1e6;
+  --surface-2:      #f8f9fa;
+  --surface-3:      #edeeef;
+  --surface-lowest: #ffffff;
+  --on-surface:     #191c1d;
+  --on-surface-dim: #5b403f;
 
-  /* shape + elevation */
-  --r-sm: 12px;  --r-md: 20px;  --r-lg: 28px;  --r-full: 999px;
-  --e1: 0 1px 2px rgba(52, 12, 6, .10), 0 1px 3px 1px rgba(52, 12, 6, .06);
-  --e2: 0 2px 6px 2px rgba(52, 12, 6, .08), 0 1px 2px rgba(52, 12, 6, .12);
-  --e3: 0 8px 24px rgba(52, 12, 6, .14);
+  /* "Api" — fire. Primary actions and heat-level indicators. */
+  --primary:        #b7102a;
+  --primary-hot:    #e63946;   /* spice-heat */
+  --on-primary:     #ffffff;
+  --primary-cont:   #db313f;
+  --on-primary-cont:#fffbff;
 
-  /* rhythm */
-  --gap: clamp(1rem, 2.5vw, 1.75rem);
-  --pad: clamp(1.25rem, 5vw, 5rem);
+  /* Aromatic oils — highlights and appetite-stimulating accents only.
+     Never body text on light: fails AA. */
+  --gold:           #f4a261;   /* golden-broth */
+  --secondary:      #8e4e14;
+  --on-secondary:   #ffffff;
+
+  /* Industrial foundation — nav, footer, structural borders. */
+  --charcoal:       #1d3557;
+  --ink:            #1d3557;
+  --ink-2:          #16283f;
+
+  --outline:        #8f6f6e;
+  --outline-variant:#e4bebc;
+  --outline-dark:   rgba(241, 241, 230, .18);
+  --on-dark:        #f1f1e6;
+  --on-dark-dim:    rgba(241, 241, 230, .74);
+
+  /* ---- shape: "Soft Industrial" — crisp, deliberately never pill-shaped -- */
+  --r-sm: 2px;  --r-md: 4px;  --r-lg: 8px;  --r-full: 12px;
+
+  /* ---- depth: tonal layering + hairline outlines, not drop shadows ------- */
+  --e1: 0 0 0 1px rgba(29, 53, 87, .10);
+  --e2: 0 0 0 1px rgba(29, 53, 87, .14);
+  --e3: 0 1px 2px rgba(29, 53, 87, .08), 0 0 0 1px rgba(29, 53, 87, .12);
+  --glow-active: 0 0 0 2px rgba(244, 162, 97, .55);
+
+  /* ---- rhythm: 8px base unit, 24px gutters, 16→64px margins ------------- */
+  --unit: 8px;
+  --gap: 24px;
+  --pad: clamp(16px, 5vw, 64px);
+  --container-max: 1280px;
   --section-y: clamp(4rem, 10vw, 8.5rem);
   --measure: 62ch;
 
-  /* motion */
+  /* ---- motion ----------------------------------------------------------- */
   --ease-emph: cubic-bezier(.2, 0, 0, 1);
   --dur: .45s;
 
-  --font: "Segoe UI", Roboto, "Helvetica Neue", -apple-system, BlinkMacSystemFont,
-          "Noto Sans", Arial, system-ui, sans-serif;
+  /* ---- type: Sora signage / Hanken reading / Space Grotesk instrumentation */
+  --font-headline: "Sora", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-label: "Space Grotesk", ui-monospace, "Segoe UI", system-ui, sans-serif;
+  --font: var(--font-body);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -62,7 +106,11 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2, h3 { line-height: 1.08; letter-spacing: -.022em; margin: 0 0 .5em; font-weight: 700; }
+h1, h2, h3 {
+  font-family: var(--font-headline);
+  line-height: 1.08; letter-spacing: -.02em; margin: 0 0 .5em; font-weight: 700;
+}
+h1 { font-weight: 800; }
 h2 { font-size: clamp(1.85rem, 1.2rem + 2.6vw, 3.15rem); }
 h3 { font-size: clamp(1.15rem, 1.02rem + .5vw, 1.4rem); letter-spacing: -.012em; }
 p  { margin: 0 0 1rem; max-width: var(--measure); }
@@ -91,15 +139,31 @@ a { color: var(--primary); text-decoration-thickness: .08em; text-underline-offs
   min-height: 3rem; padding: .8rem 1.6rem;
   border: 0; border-radius: var(--r-full);
   background: var(--btn-bg); color: var(--btn-fg);
-  font: inherit; font-weight: 650; line-height: 1;
+  font: inherit; font-family: var(--font-label); font-weight: 700; line-height: 1;
   text-decoration: none; cursor: pointer;
   transition: transform .18s var(--ease-emph), box-shadow .18s var(--ease-emph),
               background-color .18s var(--ease-emph);
 }
 .btn--filled { --btn-bg: var(--primary); --btn-fg: var(--on-primary); box-shadow: var(--e1); }
 .btn--filled:hover { --btn-bg: var(--primary-hot); box-shadow: var(--e2); transform: translateY(-1px); }
-.btn--tonal  { --btn-bg: var(--primary-cont); --btn-fg: var(--on-primary-cont); }
-.btn--tonal:hover { --btn-bg: #ffcdbe; transform: translateY(-1px); }
+.btn--tonal {
+  --btn-bg: transparent; --btn-fg: var(--on-dark);
+  box-shadow: inset 0 0 0 1px rgba(241, 241, 230, .45);
+}
+.btn--tonal:hover {
+  --btn-bg: rgba(241, 241, 230, .10);
+  box-shadow: inset 0 0 0 1px rgba(241, 241, 230, .75);
+  transform: translateY(-1px);
+}
+/* On bone-white sections the same secondary flips to charcoal outline + red text */
+.section--light .btn--tonal {
+  --btn-fg: var(--primary);
+  box-shadow: inset 0 0 0 1px rgba(29, 53, 87, .38);
+}
+.section--light .btn--tonal:hover {
+  --btn-bg: rgba(183, 16, 42, .06);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
 .btn--sm { min-height: 2.5rem; padding: .6rem 1.15rem; font-size: .94rem; }
 .btn:active { transform: translateY(0) scale(.985); }
 
@@ -154,7 +218,7 @@ a { color: var(--primary); text-decoration-thickness: .08em; text-underline-offs
   min-height: min(94svh, 900px);
   display: grid; align-items: center;
   padding: clamp(4rem, 11vh, 7rem) var(--pad) clamp(6rem, 14vh, 8rem);
-  background: var(--ink);
+  background: var(--charcoal);
   color: var(--on-dark);
 }
 
@@ -163,14 +227,21 @@ a { color: var(--primary); text-decoration-thickness: .08em; text-underline-offs
   backface-visibility: hidden;
   contain: strict;
 }
-.hero__video {
+.hero__img {
   width: 100%; height: 100%; object-fit: cover;
+  object-position: 84% 60%;
+  /* photograph carries the appetite; scrim carries the legibility */
 }
 .hero__scrim {
   position: absolute; inset: 0;
   background:
-    radial-gradient(120% 80% at 20% 30%, rgba(20, 8, 10, .35), transparent 60%),
-    linear-gradient(180deg, rgba(16, 7, 9, .82) 0%, rgba(16, 7, 9, .58) 42%, rgba(16, 7, 9, .93) 100%);
+    linear-gradient(100deg,
+      rgba(14, 24, 40, .97) 0%,
+      rgba(14, 24, 40, .96) 50%,
+      rgba(14, 24, 40, .58) 63%,
+      rgba(14, 24, 40, .22) 77%,
+      rgba(14, 24, 40, .08) 92%),
+    linear-gradient(180deg, rgba(14, 24, 40, .55) 0%, transparent 32%, rgba(14, 24, 40, .80) 100%);
 }
 .hero__spice {
   z-index: -2;
@@ -186,6 +257,7 @@ a { color: var(--primary); text-decoration-thickness: .08em; text-underline-offs
 .hero__inner { position: relative; max-width: 60rem; }
 
 .eyebrow {
+  font-family: var(--font-label);
   margin: 0 0 1rem;
   font-size: .8rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
   color: var(--gold);
@@ -193,15 +265,20 @@ a { color: var(--primary); text-decoration-thickness: .08em; text-underline-offs
 
 .hero__title {
   font-size: clamp(2.5rem, 1.4rem + 5.2vw, 5.1rem);
-  letter-spacing: -.035em;
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  text-wrap: balance;
   margin-bottom: 1.1rem;
 }
 .hero__title em {
-  font-style: normal;
-  background: linear-gradient(96deg, var(--primary-hot), var(--gold));
-  -webkit-background-clip: text; background-clip: text; color: transparent;
+  font-style: italic;
+  color: var(--primary-hot);
 }
-.hero__lede { font-size: clamp(1.05rem, .98rem + .5vw, 1.3rem); color: var(--on-dark-dim); max-width: 46ch; }
+.hero__lede {
+  font-size: clamp(1.05rem, .98rem + .5vw, 1.3rem);
+  color: rgba(241, 241, 230, .88);
+  max-width: 46ch;
+}
 
 .cta-row { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.75rem 0 2.25rem; }
 
@@ -211,8 +288,8 @@ a { color: var(--primary); text-decoration-thickness: .08em; text-underline-offs
   border-top: 1px solid var(--outline-dark);
 }
 .stat-row li { display: flex; flex-direction: column; }
-.stat-row b { font-size: 1.5rem; letter-spacing: -.02em; }
-.stat-row span { font-size: .84rem; color: var(--on-dark-dim); }
+.stat-row b { font-family: var(--font-label); font-size: 1.5rem; font-weight: 700; letter-spacing: -.02em; }
+.stat-row span { font-family: var(--font-label); font-size: .78rem; font-weight: 500; letter-spacing: .04em; color: var(--on-dark-dim); }
 
 .hero__card {
   display: none;
@@ -380,6 +457,48 @@ address { font-style: normal; line-height: 1.75; }
 .js .reveal.is-in { opacity: 1; transform: none; }
 
 /* ── Breakpoints ───────────────────────────────────────────────────────── */
+/* ---- Hero: the phone gets its own composition, not a squeezed desktop crop.
+   Text sits on a solid charcoal band up top; the bowl is given the lower
+   third at full strength so the first thing a hungry thumb sees is food. -- */
+@media (max-width: 47rem) {
+  .hero {
+    min-height: 100svh;
+    align-items: start;
+    padding-top: clamp(5rem, 13vh, 7rem);
+    padding-bottom: clamp(7rem, 22vh, 11rem);
+  }
+  .hero__img { object-position: 50% 62%; }
+  .hero__scrim {
+    background:
+      linear-gradient(180deg,
+        rgba(14, 24, 40, .96) 0%,
+        rgba(14, 24, 40, .94) 56%,
+        rgba(14, 24, 40, .58) 68%,
+        rgba(14, 24, 40, .18) 78%,
+        rgba(14, 24, 40, .10) 100%);
+  }
+  .hero__title { font-size: clamp(2.35rem, 1.1rem + 6.4vw, 3.4rem); }
+  /* Stats become an instrument panel so they stay legible over the broth,
+     and the photograph can clear from 68% instead of fighting the type. */
+  .hero__lede {
+    font-size: 1rem; line-height: 1.5;
+  }
+  .cta-row { margin: 1.35rem 0 1.5rem; }
+  .stat-row {
+    display: grid; grid-template-columns: repeat(3, auto); justify-content: start;
+    gap: .5rem 1.15rem;
+    padding: .95rem 1.05rem;
+    background: rgba(14, 24, 40, .88);
+    box-shadow: inset 0 0 0 1px rgba(241, 241, 230, .16);
+    border-radius: var(--r-lg);
+    backdrop-filter: blur(8px);
+  }
+  .stat-row b { font-size: 1.22rem; }
+  .stat-row span { font-size: .7rem; }
+  /* the scroll cue would land on bright broth at 92% — the phone scrolls anyway */
+  .hero__scroll { display: none; }
+}
+
 @media (min-width: 62rem) {
   .site-nav { display: flex; }
   .hero__card { display: block; }
