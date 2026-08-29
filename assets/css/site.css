@@ -111,7 +111,7 @@ h1, h2, h3 {
   line-height: 1.08; letter-spacing: -.02em; margin: 0 0 .5em; font-weight: 700;
 }
 h1 { font-weight: 800; }
-h2 { font-size: clamp(1.85rem, 1.2rem + 2.6vw, 3.15rem); }
+h2 { font-size: clamp(1.85rem, 1.2rem + 2.6vw, 3.15rem); text-wrap: balance; }
 h3 { font-size: clamp(1.15rem, 1.02rem + .5vw, 1.4rem); letter-spacing: -.012em; }
 p  { margin: 0 0 1rem; max-width: var(--measure); }
 img, video { display: block; max-width: 100%; }
@@ -340,16 +340,117 @@ a { color: var(--primary); text-decoration-thickness: .08em; text-underline-offs
 .section--visit .card { background: var(--surface); }
 .card p:last-child, .card address:last-child { margin-bottom: 0; }
 
-.steps {
+/* ── Bento: Stitch's 12-column functional zones ────────────────────────── */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--gap);
+}
+.bento__steps {
+  grid-column: span 12;
   display: grid; gap: var(--gap);
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
-  margin: 0; padding: 0; list-style: none; counter-reset: step;
+  margin: 0; padding: 0; list-style: none;
 }
-.step__num {
-  display: block; margin-bottom: .9rem;
-  font-size: .85rem; font-weight: 700; letter-spacing: .18em;
-  color: var(--primary);
+.bento__media   { grid-column: span 12; margin: 0; }
+.bento__control { grid-column: span 12; }
+
+/* Elevated containers are pure white with a hairline in lightened charcoal —
+   depth by tonal layering, never by drop shadow. */
+.tile {
+  position: relative; isolation: isolate; overflow: hidden;
+  padding: clamp(1.5rem, 3vw, 2.15rem);
+  border-radius: var(--r-lg);
+  background: var(--surface-lowest);
+  box-shadow: inset 0 0 0 1px rgba(29, 53, 87, .14);
+  transition: box-shadow var(--dur) var(--ease-emph),
+              transform var(--dur) var(--ease-emph);
 }
+/* Heat wash on approach, per the Stitch hover treatment */
+.tile::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(135deg, rgba(230, 57, 70, .09), transparent 62%);
+  opacity: 0; transition: opacity .7s var(--ease-emph);
+}
+.tile:hover, .tile:focus-within {
+  box-shadow: inset 0 0 0 1px rgba(230, 57, 70, .5);
+  transform: translateY(-3px);
+}
+.tile:hover::before, .tile:focus-within::before { opacity: 1; }
+
+.tile__icon {
+  display: block; width: 2.25rem; height: 2.25rem; margin-bottom: 1.1rem;
+  color: var(--primary-hot);
+}
+.tile__icon svg { width: 100%; height: 100%; display: block; }
+.tile__num {
+  display: block; margin-bottom: .45rem;
+  font-family: var(--font-label);
+  font-size: .78rem; font-weight: 700; letter-spacing: .22em;
+  color: var(--on-surface-dim);
+}
+.tile h3 { margin-bottom: .5rem; }
+.tile p:last-child { margin-bottom: 0; }
+
+/* Image cell — the photograph leans in on hover, framed not shadowed */
+.bento__media picture {
+  display: block; overflow: hidden;
+  border-radius: var(--r-lg);
+  box-shadow: inset 0 0 0 1px rgba(29, 53, 87, .14);
+}
+.bento__media img {
+  display: block; width: 100%; height: clamp(15rem, 34vw, 25rem);
+  object-fit: cover;
+  transition: transform .7s var(--ease-emph);
+}
+.bento__media:hover img { transform: scale(1.05); }
+
+.bento__control {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(1.6rem, 3.4vw, 2.6rem);
+  border-radius: var(--r-lg);
+  background: var(--surface-2);
+  box-shadow: inset 0 0 0 1px rgba(29, 53, 87, .14);
+}
+.eyebrow--gold { color: var(--secondary); }
+
+/* Spice ladder — tiered red, the Stitch 1-to-5 chilli system */
+.heat {
+  display: flex; flex-wrap: wrap; gap: .5rem;
+  margin: 1.6rem 0 1rem; padding: 0; list-style: none;
+}
+.heat__step {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .62rem 1rem .62rem .62rem;
+  border-radius: var(--r-md);
+  background: var(--surface-lowest);
+  box-shadow: inset 0 0 0 1px rgba(29, 53, 87, .14);
+}
+.heat__chilis {
+  display: grid; place-items: center;
+  width: 1.9rem; height: 1.9rem;
+  border-radius: var(--r-sm);
+  font-family: var(--font-label); font-size: .92rem; font-weight: 700;
+  color: var(--on-primary);
+  background: var(--primary);
+}
+.heat__step:nth-child(1) .heat__chilis { background: #e8a9a4; color: #4a0a10; }
+.heat__step:nth-child(2) .heat__chilis { background: #dd7a72; color: #40060c; }
+.heat__step:nth-child(3) .heat__chilis { background: #cb403a; }
+/* spice-heat itself only clears 4.17:1 under white — the ramp uses its
+   deepened sibling so level 4 stays AA without breaking the gradient */
+.heat__step:nth-child(4) .heat__chilis { background: #d92f3c; }
+.heat__step--max {
+  background: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+.heat__step--max .heat__chilis { background: var(--on-primary); color: var(--primary); }
+.heat__step--max .heat__name { color: var(--on-primary); }
+.heat__name {
+  font-family: var(--font-label); font-size: .9rem; font-weight: 700;
+  letter-spacing: .04em;
+}
+.heat__note { font-size: .92rem; color: var(--on-surface-dim); margin: 0; }
 
 /* ── Parallax band ─────────────────────────────────────────────────────── */
 .band {
@@ -500,6 +601,8 @@ address { font-style: normal; line-height: 1.75; }
 }
 
 @media (min-width: 62rem) {
+  .bento__media   { grid-column: span 5; }
+  .bento__control { grid-column: span 7; }
   .site-nav { display: flex; }
   .hero__card { display: block; }
   .hero__inner { max-width: 46rem; }

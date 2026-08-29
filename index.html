@@ -133,26 +133,89 @@
       <p class="eyebrow">How it works</p>
       <h2>Three steps, one very good bowl</h2>
     </div>
-    <ol class="steps">
-      <li class="card reveal" style="--i:0">
-        <span class="step__num">01</span>
-        <h3>Grab a basket</h3>
-        <p>Walk the chiller and take what you want: beef slices, fish tofu, quail eggs,
-          enoki, lotus root, greens, and a wall of noodles.</p>
-      </li>
-      <li class="card reveal" style="--i:1">
-        <span class="step__num">02</span>
-        <h3>We weigh it</h3>
-        <p>Pay by weight, so a light lunch stays light on the wallet. Most people land
-          somewhere between RM 1 and RM 40.</p>
-      </li>
-      <li class="card reveal" style="--i:2">
-        <span class="step__num">03</span>
-        <h3>Choose your fire</h3>
-        <p>Clear soup, tomato, or the numbing mala broth. Say the word and we dial the
-          chilli up or down for you.</p>
-      </li>
-    </ol>
+
+    <div class="bento">
+      <ol class="bento__steps">
+        <li class="tile reveal" style="--i:0">
+          <span class="tile__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 9h16l-1.6 9.2a2 2 0 0 1-2 1.8H7.6a2 2 0 0 1-2-1.8Z"/>
+              <path d="m8.5 9 2-5M15.5 9l-2-5"/><path d="M10 13v3M14 13v3"/>
+            </svg>
+          </span>
+          <span class="tile__num">01</span>
+          <h3>Grab a basket</h3>
+          <p>Walk the chiller and take what you want: beef slices, fish tofu, quail eggs,
+            enoki, lotus root, greens, and a wall of noodles.</p>
+        </li>
+        <li class="tile reveal" style="--i:1">
+          <span class="tile__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 4a2.5 2.5 0 0 1 2.45 2H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4.55A2.5 2.5 0 0 1 12 4Z"/>
+              <path d="M8 15a4 4 0 0 1 8 0"/><path d="m12 15 2.4-2.4"/>
+            </svg>
+          </span>
+          <span class="tile__num">02</span>
+          <h3>We weigh it</h3>
+          <p>Pay by weight, so a light lunch stays light on the wallet. Most people land
+            somewhere between RM 1 and RM 40.</p>
+        </li>
+        <li class="tile reveal" style="--i:2">
+          <span class="tile__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3s4.5 3.6 4.5 8a4.5 4.5 0 0 1-9 0c0-1.6.6-3 1.4-4.2.3 1.2 1 2 1.9 2.3C11 7.5 11.4 5 12 3Z"/>
+              <path d="M12 21a7 7 0 0 0 7-7"/><path d="M12 21a7 7 0 0 1-7-7"/>
+            </svg>
+          </span>
+          <span class="tile__num">03</span>
+          <h3>Choose your fire</h3>
+          <p>Clear soup, tomato, or the numbing mala broth. Say the word and we dial the
+            chilli up or down for you.</p>
+        </li>
+      </ol>
+
+      <figure class="bento__media reveal" style="--i:3">
+        <picture>
+          <source type="image/avif" sizes="(min-width: 62rem) 42vw, 92vw"
+                  srcset="assets/img/how/counter-560.avif 560w,
+                          assets/img/how/counter-840.avif 840w,
+                          assets/img/how/counter-1120.avif 1120w">
+          <source type="image/webp" sizes="(min-width: 62rem) 42vw, 92vw"
+                  srcset="assets/img/how/counter-560.webp 560w,
+                          assets/img/how/counter-840.webp 840w,
+                          assets/img/how/counter-1120.webp 1120w">
+          <img src="assets/img/how/counter-840.jpg" width="1376" height="768" loading="lazy"
+               decoding="async"
+               alt="A customer at the Sup &amp; Api ingredient counter, holding a bowl and picking
+                    from trays of greens, mushrooms, noodles and sliced meats behind glass.">
+        </picture>
+      </figure>
+
+      <div class="bento__control reveal" style="--i:4">
+        <p class="eyebrow eyebrow--gold">Interactive dining</p>
+        <h3>You set the heat</h3>
+        <p>You are the chef. Take the tongs, build the bowl you actually want, then tell us
+          how hard to push the mala. Nothing is pre-portioned and nothing is fixed.</p>
+
+        <ul class="heat" role="list">
+          <li class="heat__step"><span class="heat__chilis" aria-hidden="true">1</span>
+            <span class="heat__name">Clear</span></li>
+          <li class="heat__step"><span class="heat__chilis" aria-hidden="true">2</span>
+            <span class="heat__name">Mild</span></li>
+          <li class="heat__step"><span class="heat__chilis" aria-hidden="true">3</span>
+            <span class="heat__name">Medium</span></li>
+          <li class="heat__step"><span class="heat__chilis" aria-hidden="true">4</span>
+            <span class="heat__name">Hot</span></li>
+          <li class="heat__step heat__step--max"><span class="heat__chilis" aria-hidden="true">5</span>
+            <span class="heat__name">Mala</span></li>
+        </ul>
+        <p class="heat__note">Five levels, from a clear bone broth through to the full
+          numbing Sichuan mala.</p>
+      </div>
+    </div>
   </section>
 
   <!-- ── Parallax band: layered depth plates ── -->
